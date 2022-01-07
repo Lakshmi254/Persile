@@ -1,0 +1,3 @@
+export const LOGIN_STATUS = 'LOGIN_STATUS';
+export const RESET_STORE_ACTION = 'LOGIN_STATUS';
+
