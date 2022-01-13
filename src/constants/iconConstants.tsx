@@ -6,5 +6,5 @@ export const HASH_TAG = require('../assets/images/Hashtag.png');
 export const PERSILE_FOLDER = require('../assets/images/persile_folder.png');
 export const PHONE = require('../assets/images/phone.png');
 export const SEARCH = require('../assets/images/search.png');
-export const GOOGLE = require('../assets/images/google.png');
+export const GOOGLE = require('../assets/images/Glogo.png');
 

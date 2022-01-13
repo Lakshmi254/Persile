@@ -20,6 +20,7 @@
     "react-native": "0.66.4",
     "react-native-eject": "^0.1.2",
     "react-native-gesture-handler": "^2.1.0",
+    "react-native-google-signin": "^2.1.1",
     "react-native-otp-textinput": "^0.0.8",
     "react-native-paper": "^4.11.1",
     "react-native-safe-area-context": "^3.3.2",

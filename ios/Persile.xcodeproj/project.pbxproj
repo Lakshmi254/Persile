@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		28018AA89992BFF81E5FF2DE /* libPods-Persile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C573E4BDCDC23E95252942 /* libPods-Persile.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9C793DCB278C3A30000437F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C793DCA278C3A30000437F1 /* GoogleService-Info.plist */; };
 		ECF2AB8B69078FCE3EAFD3AB /* libPods-Persile-PersileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AC52BE71E997795F85C4A7 /* libPods-Persile-PersileTests.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		2003DDE54B8D97D0F250480D /* Pods-Persile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Persile.debug.xcconfig"; path = "Target Support Files/Pods-Persile/Pods-Persile.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Persile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85301688111C8E44F46CF765 /* Pods-Persile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Persile.release.xcconfig"; path = "Target Support Files/Pods-Persile/Pods-Persile.release.xcconfig"; sourceTree = "<group>"; };
+		9C793DCA278C3A30000437F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1C573E4BDCDC23E95252942 /* libPods-Persile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Persile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC37FAD12A7F5216314766C3 /* Pods-Persile-PersileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Persile-PersileTests.debug.xcconfig"; path = "Target Support Files/Pods-Persile-PersileTests/Pods-Persile-PersileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* Persile */ = {
 			isa = PBXGroup;
 			children = (
+				9C793DCA278C3A30000437F1 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +117,6 @@
 				DC37FAD12A7F5216314766C3 /* Pods-Persile-PersileTests.debug.xcconfig */,
 				F2681947BA188078538246F0 /* Pods-Persile-PersileTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -245,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				9C793DCB278C3A30000437F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +499,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Persile.Persile;
 				PRODUCT_NAME = Persile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -521,7 +524,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Persile.Persile;
 				PRODUCT_NAME = Persile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
