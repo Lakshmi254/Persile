@@ -9,13 +9,13 @@ import {
   ActivityIndicator,
   Alert
 } from 'react-native';
-import {Button} from 'react-native-paper';
-import {PrimaryButton} from '../../components/Button';
-import {CONTENT} from '../../constants/content';
-import {GOOGLE, WELCOME, WELCOME_1} from '../../constants/iconConstants';
-import {SCREENS} from '../../constants/navigationConstants';
-import {Colors} from '../../styles';
-import {styles} from './styles';
+import { Button } from 'react-native-paper';
+import { PrimaryButton } from '../../components/Button';
+import { CONTENT } from '../../constants/content';
+import { GOOGLE, WELCOME, WELCOME_1 } from '../../constants/iconConstants';
+import { SCREENS } from '../../constants/navigationConstants';
+import { Colors } from '../../styles';
+import { styles } from './styles';
 
 // Import Google Signin
 import {
@@ -23,26 +23,62 @@ import {
   statusCodes,
 } from 'react-native-google-signin';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Welcome = ({navigation}: any) => {
+const Welcome = ({ navigation }: any) => {
   const [userInfo, setUserInfo] = useState(null);
   const [gettingLoginStatus, setGettingLoginStatus] = useState(true);
 
-  //Showa Alert
+  //Show Alert
   const alert = (message: string | undefined) =>
-  Alert.alert(
-    "",
-    message,
-    [
-      { text: "OK", onPress: () => console.log("OK Pressed") }
-    ]
-  );
+    Alert.alert(
+      "",
+      message,
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
 
+  //API Call to create user in the backend
+  const _userSignupAPI = (info) => {
+    console.log("userInfo value", info.user);
+    const userDeatils = info.user
+    axios.post('http://54.145.109.247:5000/create-user',
+      {
+        firstName: userDeatils.givenName,
+        lastName: userDeatils.familyName,
+        email: userDeatils.email,
+        phoneNumber: '9866123123',
+        isNumberVerified: false,
+        hasDriveAccess: true
+      }).then(function (response) {
+        console.log("response object", response);
+        console.log("response data", response.data);
+        const result = response.data;
+        if (response.status === 200) {
+          if (result.is_user_exist === true) {
+            navigation.navigate('NewFolder');
+          } else {
+            navigation.navigate('Login');
+          }
+        } else {
+          alert(result.message);
+        }
+
+      })
+      .catch(function (error) {
+        console.log("response error", error);
+      });
+
+  }
+
+  //Google api to get user details
   const _getCurrentUserInfo = async () => {
     try {
       let info = await GoogleSignin.signInSilently();
       console.log('User Info --> ', info);
       setUserInfo(info);
+      _userSignupAPI(info);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         alert('User has not signed in yet');
@@ -54,10 +90,11 @@ const Welcome = ({navigation}: any) => {
     }
   };
 
+  //Google api to signin
   const _isSignedIn = async () => {
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
-      alert('User is already signed in');
+      //alert('User is already signed in');
       // Set User Info if user is already signed in
       _getCurrentUserInfo();
     } else {
@@ -66,6 +103,7 @@ const Welcome = ({navigation}: any) => {
     setGettingLoginStatus(false);
   };
 
+  //Method called on view appear
   useEffect(() => {
     // Initial configuration
     GoogleSignin.configure({
@@ -79,8 +117,8 @@ const Welcome = ({navigation}: any) => {
     _isSignedIn();
   }, []);
 
-  
 
+//Google api to login when button clicked
   const _signIn = async () => {
     // It will prompt google Signin Widget
     try {
@@ -92,6 +130,7 @@ const Welcome = ({navigation}: any) => {
       const userInfo = await GoogleSignin.signIn();
       console.log('User Info --> ', userInfo);
       setUserInfo(userInfo);
+      _userSignupAPI(userInfo)
     } catch (error) {
       console.log('Message', JSON.stringify(error));
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -99,15 +138,15 @@ const Welcome = ({navigation}: any) => {
       } else if (error.code === statusCodes.IN_PROGRESS) {
         alert('Signing In');
       } else if (
-          error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE
-        ) {
+        error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE
+      ) {
         alert('Play Services Not Available or Outdated');
       } else {
         alert(error.message);
       }
     }
   };
-  
+
   if (gettingLoginStatus) {
     return (
       <View style={styles.container}>
@@ -115,68 +154,68 @@ const Welcome = ({navigation}: any) => {
       </View>
     );
   } else {
-  return (
-    <SafeAreaView style={styles.mainContainer}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(SCREENS.LOGIN)}
-        style={{
-          alignItems: 'center',
-          flex: 1,
-          paddingHorizontal: '10%',
-          justifyContent: 'center',
-          marginTop: 30,
-        }}>
+    return (
+      <SafeAreaView style={styles.mainContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(SCREENS.LOGIN)}
+          style={{
+            alignItems: 'center',
+            flex: 1,
+            paddingHorizontal: '10%',
+            justifyContent: 'center',
+            marginTop: 30,
+          }}>
+          <View
+            style={{
+              marginTop: 100,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <View style={{ width: '15%', height: 100 }}>
+              <Image style={styles.image} source={WELCOME_1} />
+            </View>
+            <View style={{ width: '60%', marginTop: 10, height: 100 }}>
+              <Image style={styles.image} source={WELCOME} />
+            </View>
+          </View>
+        </TouchableOpacity>
         <View
           style={{
-            marginTop: 100,
-            flexDirection: 'row',
+            flex: 1,
+            paddingHorizontal: '10%',
+            marginTop: 30,
             justifyContent: 'center',
           }}>
-          <View style={{width: '15%', height: 100}}>
-            <Image style={styles.image} source={WELCOME_1} />
-          </View>
-          <View style={{width: '60%', marginTop: 10, height: 100}}>
-            <Image style={styles.image} source={WELCOME} />
-          </View>
+          <Button onPress={_signIn}
+            style={{
+              borderColor: Colors.BLACK,
+              borderBottomColor: Colors.BLACK,
+              borderWidth: 1,
+              borderRadius: 10,
+              paddingVertical: 3,
+              width: '100%',
+            }}
+            labelStyle={styles.lableText}
+            uppercase={false}
+            icon={({ size, color, direction }: any) => (
+              <Image
+                source={GOOGLE}
+                style={[
+
+                  {
+                    width: size,
+                    height: size,
+                    //tintColor: color,
+                  },
+                ]}
+              />
+            )}>
+            Continue with Google
+          </Button>
         </View>
-      </TouchableOpacity>
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: '10%',
-          marginTop: 30,
-          justifyContent: 'center',
-        }}>
-        <Button onPress={_signIn}
-          style={{
-            borderColor: Colors.BLACK,
-            borderBottomColor: Colors.BLACK,
-            borderWidth: 1,
-            borderRadius: 10,
-            paddingVertical: 3,
-            width: '100%',
-          }}
-          labelStyle={styles.lableText}
-          uppercase={false}
-          icon={({size, color, direction}: any) => (
-            <Image
-              source={GOOGLE}
-              style={[
-               
-                {
-                  width: size,
-                  height: size,
-                  //tintColor: color,
-                },
-              ]}
-            />
-          )}>
-          Continue with Google
-        </Button>
-      </View>
-    </SafeAreaView>
-  );
-            }
+      </SafeAreaView>
+    );
+  }
 };
 
 export default Welcome;
