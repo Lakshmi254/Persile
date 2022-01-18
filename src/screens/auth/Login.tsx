@@ -15,9 +15,10 @@ import {Colors, Spacing} from '../../styles';
 import {styles} from './styles';
 
 const Login = ({navigation}: any) => {
-  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('+1');
   const [userIdErrorMsg, setUserIdErrorMsg] = React.useState(null as any);
   const userIdChange = (text: string) => {
+    console.log("text",text);
     setPhoneNumber(text);
   };
   return (

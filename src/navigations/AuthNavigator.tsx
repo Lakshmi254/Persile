@@ -15,8 +15,8 @@ const AuthNavigator = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name={SCREENS.WELCOME} component={Welcome} />
     <Stack.Screen name={SCREENS.LOGIN} component={Login} />
+    <Stack.Screen name={SCREENS.WELCOME} component={Welcome} />
     <Stack.Screen name={SCREENS.OTP} component={Otp} />
     <Stack.Screen name={SCREENS.FOLDER_LIST} component={FolderList} />
     <Stack.Screen

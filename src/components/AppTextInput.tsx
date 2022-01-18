@@ -27,11 +27,11 @@ const AppTextInput = (props: any) => {
         style={styles.normalTextField}
         mode="outlined"
         error={inputData.ErrorMsg}
-        secureTextEntry={inputData.secureTextEntry}
-        label={inputData.label}
+       secureTextEntry={inputData.secureTextEntry}
+       label={inputData.label}
         value={inputData.value}
-        onChangeText={text => inputData.onChange(text)}
-        maxLength={inputData.maxLength}
+       onChangeText={text => inputData.onChange(text)}
+       maxLength={inputData.maxLength}
         right={inputData.right}
         returnKeyType={inputData.returnKeyType}
         keyboardType={inputData.keyboardType}

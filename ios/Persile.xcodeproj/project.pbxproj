@@ -14,6 +14,7 @@
 		28018AA89992BFF81E5FF2DE /* libPods-Persile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C573E4BDCDC23E95252942 /* libPods-Persile.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9C793DCB278C3A30000437F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C793DCA278C3A30000437F1 /* GoogleService-Info.plist */; };
+		9C793DCD2796DC86000437F1 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C793DCC2796DC86000437F1 /* Roboto-Regular.ttf */; };
 		ECF2AB8B69078FCE3EAFD3AB /* libPods-Persile-PersileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AC52BE71E997795F85C4A7 /* libPods-Persile-PersileTests.a */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Persile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85301688111C8E44F46CF765 /* Pods-Persile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Persile.release.xcconfig"; path = "Target Support Files/Pods-Persile/Pods-Persile.release.xcconfig"; sourceTree = "<group>"; };
 		9C793DCA278C3A30000437F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9C793DCC2796DC86000437F1 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		B1C573E4BDCDC23E95252942 /* libPods-Persile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Persile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC37FAD12A7F5216314766C3 /* Pods-Persile-PersileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Persile-PersileTests.debug.xcconfig"; path = "Target Support Files/Pods-Persile-PersileTests/Pods-Persile-PersileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -130,6 +132,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9C793DCC2796DC86000437F1 /* Roboto-Regular.ttf */,
 				13B07FAE1A68108700A75B9A /* Persile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PersileTests */,
@@ -245,6 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C793DCD2796DC86000437F1 /* Roboto-Regular.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9C793DCB278C3A30000437F1 /* GoogleService-Info.plist in Resources */,
@@ -488,6 +492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KS9HBTZQ23;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Persile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,6 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KS9HBTZQ23;
 				INFOPLIST_FILE = Persile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
