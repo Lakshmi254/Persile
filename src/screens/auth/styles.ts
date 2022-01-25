@@ -6,6 +6,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.WHITE,
   },
+  spinnerTextStyle: {
+    color: '#000000'
+  },
+  activitycontainer: {
+    justifyContent: 'center',
+    alignItems:'center',
+    position: 'absolute',       
+  },
   container: {
     flex: 1,
     paddingHorizontal: '10%',
@@ -19,6 +27,7 @@ export const styles = StyleSheet.create({
     fontSize: Spacing.SCALE_14,
     fontWeight: '400',
     color: Colors.BLACK,
+    letterSpacing : 0.5
   },
   subContainer: {
     marginTop: '35%',
@@ -40,8 +49,9 @@ export const styles = StyleSheet.create({
     fontSize: Spacing.SCALE_18,
   },
   lableText: {
-    fontSize: Spacing.SCALE_16,
-    fontWeight: 'bold',
+    fontFamily : Typography.FONT_FAMILY_BOLD,
+    fontWeight: '600',
+    fontSize: Spacing.SCALE_18,
     color: Colors.BLACK,
   },
   image: {
@@ -83,7 +93,7 @@ export const styles = StyleSheet.create({
 
   roundedTextInput: {
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1,
   },
   textInputContainer: {
     marginBottom: 20,

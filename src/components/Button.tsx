@@ -8,7 +8,8 @@ export const PrimaryButton = (props: any) => {
   return (
     <TouchableOpacity
       onPress={primaryButtonData.onPress}
-      style={SharedStyles.sharedButton}>
+      disabled={primaryButtonData.disable}
+      style={ primaryButtonData.disable === true? SharedStyles.disabledButton : SharedStyles.sharedButton}>
       <Text style={SharedStyles.sharedButtonTitle}>
         {primaryButtonData.title}
       </Text>

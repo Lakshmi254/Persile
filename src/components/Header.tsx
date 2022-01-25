@@ -6,10 +6,11 @@ import {Colors, Spacing, Typography} from '../styles';
 const styles = StyleSheet.create({
   title: {
     fontSize: Spacing.SCALE_20,
-    fontFamily: Typography.FONT_FAMILY_REGULAR,
+    fontFamily: Typography.FONT_FAMILY_BOLD,
     color: Colors.BLACK,
-    fontWeight: '500',
+    fontWeight: '600',
     paddingHorizontal: '5%',
+    letterSpacing : 1
   },
   container: {
     flexDirection: 'row',

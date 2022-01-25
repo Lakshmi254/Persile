@@ -2,6 +2,9 @@ import {scaleFont} from './mixins';
 
 // FONT FAMILY
 export const FONT_FAMILY_REGULAR = 'Roboto-Regular';
+export const FONT_FAMILY_BOLD = 'Roboto-Regular';
+export const FONT_FAMILY_MEDIUM = 'Roboto-Regular';
+
 
 // FONT WEIGHT
 export const FONT_WEIGHT_REGULAR = '300';

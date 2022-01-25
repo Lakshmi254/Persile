@@ -6,7 +6,7 @@ export const CONTENT = {
   PHONE_NUMBER1: 'Enter in your phone number\nso we know it’s you.',
   //otp
   ENTER_CODE: 'Enter Code',
-  ENTER_CODE1: 'Please enter the 4 digit code\nwe’ve sent to (952) 401-1147',
+  ENTER_CODE1: 'Please enter the 6 digit code\nwe’ve sent to ',
   RESEND_CODE: 'RESEND CODE',
   //folder list empty
   NOTHING_HERE: 'Nothing here yet.',

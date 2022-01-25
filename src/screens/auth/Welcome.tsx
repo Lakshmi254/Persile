@@ -16,6 +16,7 @@ import { GOOGLE, WELCOME, WELCOME_1 } from '../../constants/iconConstants';
 import { SCREENS } from '../../constants/navigationConstants';
 import { Colors } from '../../styles';
 import { styles } from './styles';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 // Import Google Signin
 import {
@@ -24,11 +25,13 @@ import {
 } from 'react-native-google-signin';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 const Welcome = ({ navigation }: any) => {
   const [userInfo, setUserInfo] = useState(null);
-  const [gettingLoginStatus, setGettingLoginStatus] = useState(true);
+  const [gettingLoginStatus, setGettingLoginStatus] = useState(false);
 
+  
   //Show Alert
   const alert = (message: string | undefined) =>
     Alert.alert(
@@ -39,36 +42,42 @@ const Welcome = ({ navigation }: any) => {
       ]
     );
 
+   
+
   //API Call to create user in the backend
   const _userSignupAPI = (info) => {
+    setGettingLoginStatus(true)
     console.log("userInfo value", info.user);
     const userDeatils = info.user
-    axios.post('http://54.145.109.247:5000/create-user',
+    if (userDeatils.email !== null) {
+    axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_CREATEUSER}`,
       {
         firstName: userDeatils.givenName,
         lastName: userDeatils.familyName,
         email: userDeatils.email,
-        phoneNumber: '9866123123',
+        phoneNumber: '',
         isNumberVerified: false,
         hasDriveAccess: true
       }).then(function (response) {
-        console.log("response object", response);
+        setGettingLoginStatus(false)
         console.log("response data", response.data);
         const result = response.data;
         if (response.status === 200) {
-          if (result.is_user_exist === true) {
-            navigation.navigate('NewFolder');
+          if (result.isNumberVerified === true) {
+            navigation.navigate(SCREENS.FOLDER_LIST_EMPTY);
           } else {
-            navigation.navigate('Login');
+            const id = result.value.id
+            navigation.navigate(SCREENS.LOGIN, id);
           }
         } else {
           alert(result.message);
         }
-
       })
       .catch(function (error) {
+        setGettingLoginStatus(false)
         console.log("response error", error);
       });
+    }
 
   }
 
@@ -99,6 +108,7 @@ const Welcome = ({ navigation }: any) => {
       _getCurrentUserInfo();
     } else {
       console.log('Please Login');
+      setGettingLoginStatus(false);
     }
     setGettingLoginStatus(false);
   };
@@ -147,17 +157,15 @@ const Welcome = ({ navigation }: any) => {
     }
   };
 
-  if (gettingLoginStatus) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  } else {
+ 
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(SCREENS.LOGIN)}
+         <Spinner
+          visible={gettingLoginStatus}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
+        <View
           style={{
             alignItems: 'center',
             flex: 1,
@@ -178,7 +186,7 @@ const Welcome = ({ navigation }: any) => {
               <Image style={styles.image} source={WELCOME} />
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
         <View
           style={{
             flex: 1,
@@ -193,8 +201,8 @@ const Welcome = ({ navigation }: any) => {
               borderWidth: 1,
               borderRadius: 10,
               paddingVertical: 3,
-              width: '100%',
-            }}
+              width: '100%'
+             }}
             labelStyle={styles.lableText}
             uppercase={false}
             icon={({ size, color, direction }: any) => (
@@ -215,11 +223,8 @@ const Welcome = ({ navigation }: any) => {
         </View>
       </SafeAreaView>
     );
-  }
 };
 
 export default Welcome;
-function alert(message: any) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -20,7 +20,7 @@ const AppTextInput = (props: any) => {
           colors: {
             placeholder: Colors.TERTIARY,
             text: Colors.SECONDARY,
-            primary: '#1ED760',
+            primary: '#000000',
             error: Colors.RED,
           },
         }}
