@@ -55,6 +55,8 @@ const Login = ({navigation , route}: any) => {
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
     //const phoneNumberCode = "+1"+numertoPaa1
     const phoneNumberCode = "+91"+numertoPaa1
+    console.log("code and phone", phoneNumberCode );
+
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`,
       {
         "mobile_number": phoneNumberCode

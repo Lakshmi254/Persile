@@ -93,9 +93,9 @@ export const styles = StyleSheet.create({
 
   roundedTextInput: {
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 1
   },
   textInputContainer: {
-    marginBottom: 20,
+    marginBottom: 20
   },
 });

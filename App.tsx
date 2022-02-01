@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MainStackNavigator from './src';
 import {Colors} from './src/styles';
 import store from './src/store/store';
+import SplashScreen from  "react-native-splash-screen";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,11 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
+
+   //Hide Splash screen on app load.
+   React.useEffect(() => {
+    SplashScreen.hide();
+  });
   // Ignore log notification by message
   LogBox.ignoreLogs(['Warning: ...']);
   // Ignore all log notifications

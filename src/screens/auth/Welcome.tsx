@@ -1,17 +1,6 @@
 import * as React from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  ActivityIndicator,
-  Alert
-} from 'react-native';
+import {View, SafeAreaView,Image,Alert,Platform} from 'react-native';
 import { Button } from 'react-native-paper';
-import { PrimaryButton } from '../../components/Button';
-import { CONTENT } from '../../constants/content';
 import { GOOGLE, WELCOME, WELCOME_1 } from '../../constants/iconConstants';
 import { SCREENS } from '../../constants/navigationConstants';
 import { Colors } from '../../styles';
@@ -28,6 +17,8 @@ import axios from 'axios';
 import Config from 'react-native-config';
 
 const Welcome = ({ navigation }: any) => {
+  const IOS_CLIENT = '410231270996-rhuu5an1f7nqsp9d3t6971d64ofd0iuc.apps.googleusercontent.com';
+  const ANDROID_CLIENT = '410231270996-c7mrngt4qgcn06vdqp67qf1i5bmn5h0l.apps.googleusercontent.com';
   const [userInfo, setUserInfo] = useState(null);
   const [gettingLoginStatus, setGettingLoginStatus] = useState(false);
 
@@ -115,13 +106,21 @@ const Welcome = ({ navigation }: any) => {
 
   //Method called on view appear
   useEffect(() => {
+    var cliendId = ''
+    if (Platform.OS === 'ios') {
+      cliendId = IOS_CLIENT
+    }else{
+      cliendId = ANDROID_CLIENT
+
+    }
+    
     // Initial configuration
     GoogleSignin.configure({
       // Mandatory method to call before calling signIn()
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
       // Repleace with your webClientId
       // Generated from Firebase console
-      webClientId: '410231270996-rhuu5an1f7nqsp9d3t6971d64ofd0iuc.apps.googleusercontent.com',
+      webClientId: cliendId,
     });
     // Check if user is already signed in
     _isSignedIn();

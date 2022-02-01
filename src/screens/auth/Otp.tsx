@@ -25,7 +25,7 @@ const Otp = ({navigation , route}: any) => {
     setCode(text);
     if (text.length === 6) {
       setBtnDisable(false);
-      console.log("set button false to disable");
+      //apiCallToVerifyOtp()
     } else {
       setBtnDisable(true);
     }
@@ -34,8 +34,8 @@ const Otp = ({navigation , route}: any) => {
   useEffect(() => {
     // Update the document title using the browser API
     console.log("route.params",route.params);
-    setPhoneNumber(route.params.phone)
-    setId(route.params.id)
+   // setPhoneNumber(route.params.phone)
+   // setId(route.params.id)
   });
 
    //Show Alert
@@ -56,7 +56,7 @@ const Otp = ({navigation , route}: any) => {
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
     const phoneNumberIST = "+91"+numertoPaa1
-   // const phoneNumberIST = "+1"+numertoPaa1
+   //const phoneNumberIST = "+1"+numertoPaa1
     console.log("code and phone", phoneNumberIST , Code , id);
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_VERIFYOTP}`,
       {
@@ -141,6 +141,7 @@ const Otp = ({navigation , route}: any) => {
           <Text style={styles.subText}>{CONTENT.ENTER_CODE1}{phoneNumber}</Text>
         </View>
 
+      <View style={{alignItems:'center' , width:"100%"}}>
         <OTPTextView
           handleTextChange={(e: any) => {
             onInputChangeText(e)
@@ -152,6 +153,7 @@ const Otp = ({navigation , route}: any) => {
           textInputStyle={styles.roundedTextInput}
           inputCount={6}
         />
+        </View>
         <View style={{marginTop: 50, paddingHorizontal: '10%'}}>
           <PrimaryButton
             onPress={() => onsubmitOtp()}

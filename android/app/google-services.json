@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "410231270996",
+    "project_id": "persile",
+    "storage_bucket": "persile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410231270996:android:d3a2cd2ae2101b04e7c7c1",
+        "android_client_info": {
+          "package_name": "com.persile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410231270996-ct9v6p2gear6pinsgqmve2lpemmm7id3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.persile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "410231270996-c7mrngt4qgcn06vdqp67qf1i5bmn5h0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0vt7geH6s8Z6vF50hhsDkOrEjo9KbpLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410231270996-c7mrngt4qgcn06vdqp67qf1i5bmn5h0l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "410231270996-rhuu5an1f7nqsp9d3t6971d64ofd0iuc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Persile.Persile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
