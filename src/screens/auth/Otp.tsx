@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity , Alert ,TouchableWithoutFeedback,
   Keyboard,
-  ActivityIndicator} from 'react-native';
+  ActivityIndicator,
+  BackHandler} from 'react-native';
 import {PrimaryButton} from '../../components/Button';
 import Header from '../../components/Header';
 import {CONTENT} from '../../constants/content';
@@ -19,7 +20,11 @@ const Otp = ({navigation , route}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [spinner, showspinner] = React.useState(false);
   const [id, setId] = useState('');
-
+  const [counter, setCounter] = React.useState(30);
+  useEffect(() => {
+      const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      return () => clearInterval(timer);
+  }, [counter]);
 
   const onInputChangeText = (text: string) => {
     setCode(text);
@@ -31,12 +36,15 @@ const Otp = ({navigation , route}: any) => {
     }
   };
 
+
   useEffect(() => {
     // Update the document title using the browser API
     console.log("route.params",route.params);
-   // setPhoneNumber(route.params.phone)
-   // setId(route.params.id)
-  });
+    setPhoneNumber(route.params.phone)
+    setId(route.params.id)
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => navigation.navigate(SCREENS.LOGIN))
+    return () => backHandler.remove()
+  },[]);
 
    //Show Alert
    const alert = (message: string | undefined) =>
@@ -88,6 +96,7 @@ const Otp = ({navigation , route}: any) => {
 
   const apiCallToReSendOTP = () => {
     showspinner(true)
+    
     console.log(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`)
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     //const phoneNumberCode = "+1"+numertoPaa
@@ -102,6 +111,7 @@ const Otp = ({navigation , route}: any) => {
         const result = response.data;
         if (response.status === 200) {
           alert(result.message);
+          setCounter(30)
         } else {
           showspinner(false)
           alert(result.message);
@@ -153,7 +163,8 @@ const Otp = ({navigation , route}: any) => {
           textInputStyle={styles.roundedTextInput}
           inputCount={6}
         />
-        </View>
+      </View>
+      <Text style={{alignSelf : 'flex-end'}}> Resend OTP in 00:{counter}</Text>
         <View style={{marginTop: 50, paddingHorizontal: '10%'}}>
           <PrimaryButton
             onPress={() => onsubmitOtp()}
@@ -161,7 +172,7 @@ const Otp = ({navigation , route}: any) => {
             disable={btnDisable}
           />
         </View>
-        <TouchableOpacity onPress={() => resendOtp()}>
+        <TouchableOpacity disabled={counter === 0 ? false : true} onPress={() => resendOtp()}>
           <Text style={styles.resendCode}>{CONTENT.RESEND_CODE}</Text>
         </TouchableOpacity>
       </View>

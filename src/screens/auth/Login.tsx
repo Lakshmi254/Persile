@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Alert,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
 import AppTextInput from '../../components/AppTextInput';
 import {PrimaryButton} from '../../components/Button';
@@ -18,7 +19,7 @@ import {styles} from './styles';
 import Config from "react-native-config";
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Login = ({navigation , route}: any) => {
   const [phoneNumber, setPhoneNumber] = React.useState('');
@@ -82,11 +83,16 @@ const Login = ({navigation , route}: any) => {
         console.log("response error", error);
       });
   }
-
-  React.useEffect(() => {
+  const handleBackButton = () => {
+    //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+    return true;
+}
+  useEffect(() => {
     // Update the document title using the browser API
     setId(route.params)
-  });
+    const unsubscribe = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => null
+  }, []);
 
   const onSubmitPhone = () => {
     if (phoneNumber.length <= 0) {

@@ -4,8 +4,8 @@ import {Colors, Spacing, Typography} from '../../styles';
 export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: Colors.WHITE,
-  },
+    backgroundColor: Colors.WHITE
+    },
   spinnerTextStyle: {
     color: '#000000'
   },
