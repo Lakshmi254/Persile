@@ -1,6 +1,0 @@
-module Pods_Persile {
-  umbrella header "Pods-Persile-umbrella.h"
-
-  export *
-  module * { export * }
-}
