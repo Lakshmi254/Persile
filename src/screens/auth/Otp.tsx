@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity , Alert ,TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
-  BackHandler} from 'react-native';
+  BackHandler,
+  Platform} from 'react-native';
 import {PrimaryButton} from '../../components/Button';
 import Header from '../../components/Header';
 import {CONTENT} from '../../constants/content';
@@ -13,7 +14,6 @@ import Config from "react-native-config";
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-
 const Otp = ({navigation , route}: any) => {
   const [Code, setCode] = useState(0);
   const [btnDisable, setBtnDisable] = useState(true);
@@ -22,15 +22,20 @@ const Otp = ({navigation , route}: any) => {
   const [id, setId] = useState('');
   const [counter, setCounter] = React.useState(30);
   useEffect(() => {
-      const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-      return () => clearInterval(timer);
+    if (counter > 0) {
+      const interval = setInterval(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+    
   }, [counter]);
 
   const onInputChangeText = (text: string) => {
     setCode(text);
     if (text.length === 6) {
       setBtnDisable(false);
-      //apiCallToVerifyOtp()
+      apiCallToVerifyOtp(text)
     } else {
       setBtnDisable(true);
     }
@@ -56,20 +61,19 @@ const Otp = ({navigation , route}: any) => {
      ]
    );
 
-  const apiCallToVerifyOtp = () => {
+  const apiCallToVerifyOtp = (code : string) => {
     showspinner(true)
     console.log("mobile number",phoneNumber);
-    console.log(`${Config.API_BASE_URL}${Config.API_ENDPOINT_VERIFYOTP}`)
     //const phoneNumberIST = "+1"+phoneNumber
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
-    const phoneNumberIST = "+91"+numertoPaa1
-   //const phoneNumberIST = "+1"+numertoPaa1
-    console.log("code and phone", phoneNumberIST , Code , id);
+    //const phoneNumberIST = "+91"+numertoPaa1
+    const phoneNumberIST = "+1"+numertoPaa1
+    console.log("code and phone", phoneNumberIST , code , id);
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_VERIFYOTP}`,
       {
         "mobile_number": phoneNumberIST,
-        "otp":Code,
+        "otp":code,
         "id":id
       }).then(function (response) {
         showspinner(false)
@@ -95,9 +99,7 @@ const Otp = ({navigation , route}: any) => {
   }
 
   const apiCallToReSendOTP = () => {
-    showspinner(true)
-    
-    console.log(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`)
+    showspinner(true)   
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     //const phoneNumberCode = "+1"+numertoPaa
     const phoneNumberCode = "+91"+numertoPaa
@@ -128,7 +130,7 @@ const Otp = ({navigation , route}: any) => {
   };
 
   const onsubmitOtp = () => {
-    apiCallToVerifyOtp();
+    apiCallToVerifyOtp(Code);
   };
   // if (spinner) {
   //   return (

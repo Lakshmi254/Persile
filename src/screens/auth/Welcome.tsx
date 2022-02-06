@@ -66,7 +66,8 @@ const Welcome = ({ navigation }: any) => {
       })
       .catch(function (error) {
         setGettingLoginStatus(false)
-        console.log("response error", error);
+        alert(error);
+        //console.log("response error", error);
       });
     }
 

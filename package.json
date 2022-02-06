@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android-dev": "react-native run-android --variant=dev",
+    "android-stage": "react-native run-android --variant=stage",
+    "android-release": "ENVFILE=.env.prod react-native run-android --variant=release",
     "ios": "react-native run-ios",
     "ios-development": "ENVFILE=.env.development react-native run-ios",
     "ios-staging": "ENVFILE=.env.staging react-native run-ios",

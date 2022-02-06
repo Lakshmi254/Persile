@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, SafeAreaView, Image} from 'react-native';
+import {View, Text, SafeAreaView, Image, BackHandler} from 'react-native';
 
 import Header from '../../components/Header';
 import {CONTENT} from '../../constants/content';
@@ -7,6 +7,17 @@ import {HASH_TAG, PERSILE_FOLDER, PHONE} from '../../constants/iconConstants';
 import {styles} from './styles';
 
 const FolderListEmpty = ({navigation}: any) => {
+  React.useEffect(() => {
+    // Update the document title using the browser API
+    const unsubscribe = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => null
+  }, []);
+
+  const handleBackButton = () => {
+    //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+    return true;
+}
+  
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Header title={CONTENT.PERSILE} />
