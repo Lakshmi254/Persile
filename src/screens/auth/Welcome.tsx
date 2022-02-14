@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, SafeAreaView,Image,Alert,Platform} from 'react-native';
 import { Button } from 'react-native-paper';
-import { GOOGLE, WELCOME, WELCOME_1 } from '../../constants/iconConstants';
+import { GOOGLE, WELCOME } from '../../constants/iconConstants';
 import { SCREENS } from '../../constants/navigationConstants';
 import { Colors } from '../../styles';
 import { styles } from './styles';
@@ -179,11 +179,11 @@ const Welcome = ({ navigation }: any) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <View style={{ width: '15%', height: 100 }}>
+            {/* <View style={{ width: '15%', height: 100 }}>
               <Image style={styles.image} source={WELCOME_1} />
-            </View>
-            <View style={{ width: '60%', marginTop: 10, height: 100 }}>
-              <Image style={styles.image} source={WELCOME} />
+            </View> */}
+            <View style={{flex : 1 ,justifyContent: 'center', marginTop: 10, height: 100 }}>
+              <Image style={{flex : 1,resizeMode : 'contain' ,alignSelf : 'center' ,}} source={WELCOME} />
             </View>
           </View>
         </View>
@@ -211,8 +211,8 @@ const Welcome = ({ navigation }: any) => {
                 style={[
 
                   {
-                    width: size,
-                    height: size,
+                    width: 16,
+                    height: 16,
                     //tintColor: color,
                   },
                 ]}

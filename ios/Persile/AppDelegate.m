@@ -49,7 +49,7 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
     // Set the splash screen to show by default.
-  [RNSplashScreen show]; 
+  [RNSplashScreen show];
   return YES;
 }
 

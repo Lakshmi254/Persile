@@ -67,8 +67,12 @@ const Otp = ({navigation , route}: any) => {
     //const phoneNumberIST = "+1"+phoneNumber
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
-    //const phoneNumberIST = "+91"+numertoPaa1
-    const phoneNumberIST = "+1"+numertoPaa1
+    var phoneNumberIST = ""
+    if (Config.API_BASE_URL === "US") {
+      phoneNumberIST = "+1"+numertoPaa1
+    } else {
+      phoneNumberIST = "+91"+numertoPaa1
+    }
     console.log("code and phone", phoneNumberIST , code , id);
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_VERIFYOTP}`,
       {
@@ -101,8 +105,12 @@ const Otp = ({navigation , route}: any) => {
   const apiCallToReSendOTP = () => {
     showspinner(true)   
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
-    //const phoneNumberCode = "+1"+numertoPaa
-    const phoneNumberCode = "+91"+numertoPaa
+    var phoneNumberCode = ""
+    if (Config.API_BASE_URL === "US") {
+      phoneNumberCode = "+1"+numertoPaa
+    } else {
+      phoneNumberCode = "+91"+numertoPaa
+    }
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`,
       {
         "mobile_number": phoneNumberCode

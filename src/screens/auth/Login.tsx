@@ -48,15 +48,19 @@ const Login = ({navigation , route}: any) => {
        { text: "OK", onPress: () => console.log("OK Pressed") }
      ]
    );
-   
+
   const apiCallToSendOTP = () => {
     showspinner(true)
     console.log("mobile number",phoneNumber);
     console.log(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`)
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
-    const phoneNumberCode = "+1"+numertoPaa1
-    //const phoneNumberCode = "+91"+numertoPaa1
+    var phoneNumberCode = ""
+    if (Config.API_BASE_URL === "US") {
+       phoneNumberCode = "+1"+numertoPaa1
+    } else {
+       phoneNumberCode = "+91"+numertoPaa1
+    }
     console.log("code and phone", phoneNumberCode );
 
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_SENDOTP}`,

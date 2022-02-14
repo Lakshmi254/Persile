@@ -11,7 +11,7 @@ export const CONTENT = {
   //folder list empty
   NOTHING_HERE: 'Nothing here yet.',
   NOTHING_HERE_CONTENT:
-    'Quick instructions:\n\nCreate customized folders with a text message and a HASHTAG!\n\nFile personal notes into these custom folders by texting them to 1-800-544-3023.\n\nWhen you begin each text with a HASHTAG followed by the folders name, PERSILE will file it in its correct folder.\n\nIt’s just that easy! “HASHTAG the text and let PERSILE do the rest”',
+    'Start Creating Your PERSILE Folders!\n\nCreate customized folders with a text message and a HASHTAG!\n\nFile personal notes into these custom folders by texting them to 1-800-544-3023.\n\nWhen you begin each text with a HASHTAG followed by the folders name, PERSILE will file it in its correct folder.\n\nIt’s just that easy! “HASHTAG the text and let PERSILE do the rest”',
   PHOTO: 'Photo',
   PHOTO_OUR_VACATION: 'Photo our vacation',
   //folder list
