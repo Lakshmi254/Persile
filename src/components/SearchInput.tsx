@@ -24,7 +24,7 @@ const SearchInput = (props: any) => {
         maxLength={50}
         theme={{
           colors: {
-            primary: Colors.SUCCESS,
+            primary: Colors.BLACK,
           },
           roundness: 5,
         }}

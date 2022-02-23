@@ -27,7 +27,8 @@ export const styles = StyleSheet.create({
     fontSize: Spacing.SCALE_14,
     fontWeight: '400',
     color: Colors.BLACK,
-    letterSpacing : 0.5
+    letterSpacing : 0.5,
+    textAlign: 'justify'
   },
   subContainer: {
     marginTop: '35%',

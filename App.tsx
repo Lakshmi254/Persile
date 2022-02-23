@@ -18,8 +18,13 @@ const App = () => {
 
    //Hide Splash screen on app load.
    React.useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => 
+    {
+      SplashScreen.hide();
+    },
+    3000);
   });
+ 
   // Ignore log notification by message
   LogBox.ignoreLogs(['Warning: ...']);
   // Ignore all log notifications
