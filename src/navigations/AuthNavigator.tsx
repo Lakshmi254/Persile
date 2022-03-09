@@ -19,7 +19,7 @@ const AuthNavigator = () => (
     <Stack.Screen name={SCREENS.WELCOME} component={Welcome}  options={{gestureEnabled: false}} />
     <Stack.Screen name={SCREENS.LOGIN} component={Login} options={{gestureEnabled: false}} />
     <Stack.Screen name={SCREENS.OTP} component={Otp} options={{gestureEnabled: true}}/>
-    <Stack.Screen name={SCREENS.FOLDER_LIST} component={FolderList} />
+    <Stack.Screen name={SCREENS.FOLDER_LIST} component={FolderList} options={{gestureEnabled: false}} />
     <Stack.Screen
       name={SCREENS.FOLDER_LIST_EMPTY}
       component={FolderListEmpty}

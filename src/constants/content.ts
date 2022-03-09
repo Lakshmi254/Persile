@@ -11,12 +11,12 @@ export const CONTENT = {
   //folder list empty
   NOTHING_HERE: 'Nothing here yet.',
   NOTHING_HERE_CONTENT:
-    'Start Creating Your PERSILE Folders!\n\nCreate customized folders, notes, and tasks.\n\nBegin each text with a HASHTAG followed by the name of the folder that you wish to send it to.  (i.e. #Goals)\n\nBy sending the message to the PERSILE App at 1-888-513-3299 our system will create a new folder if it does not yet exist and your notes and tasks will be filed into their correct folders.\n\nIt’s just that easy! \n\n“HASHTAG the text and let PERSILE do the rest”',
+    'Start Creating Your PERSILE Folders!\n\nCreate customized folders, notes, and tasks.\n\nBegin each text with a HASHTAG followed by the name of the folder that you wish to send it to.  (i.e. #Goals)\n\nBy sending the message to the PERSILE App at (888) 513-3299 our system will create a new folder if it does not yet exist and your notes and tasks will be filed into their correct folders.\n\nIt’s just that easy! \n\n“HASHTAG the text and let PERSILE do the rest”',
   PHOTO: 'Photo',
   PHOTO_OUR_VACATION: 'Photo our vacation',
   //folder list
   FOLDER_CONTENT:
-    'Text a hashtag and any\ntext, photo, and video to\n(800) 544-3023',
+    'Text a hashtag and any\ntext, photo, and video to\n(888) 513-3299',
   //new folder
   BREAK_FAST: '#breakfast',
   NEW_FOLDER_CONTENT: 'What would you like this folder to be?',

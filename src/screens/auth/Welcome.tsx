@@ -55,7 +55,7 @@ const Welcome = ({ navigation }: any) => {
         const result = response.data;
         if (response.status === 200) {
           if (result.isNumberVerified === true) {
-            navigation.navigate(SCREENS.FOLDER_LIST_EMPTY);
+            navigation.navigate(SCREENS.FOLDER_LIST);
           } else {
             const id = result.value.id
             navigation.navigate(SCREENS.LOGIN, id);

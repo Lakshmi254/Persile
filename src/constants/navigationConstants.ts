@@ -5,4 +5,5 @@ export const SCREENS = {
   FOLDER_LIST: 'FolderList',
   FOLDER_LIST_EMPTY: 'FolderListEmpty',
   NEW_FOLDER: 'NewFolder',
+  MESSAGE_LIST : 'MessageList',
 };

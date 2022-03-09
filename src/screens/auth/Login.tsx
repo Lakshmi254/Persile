@@ -6,16 +6,13 @@ import {
   Text,
   SafeAreaView,
   Alert,
-  ActivityIndicator,
   BackHandler,
-  Platform,
 } from 'react-native';
 import AppTextInput from '../../components/AppTextInput';
 import {PrimaryButton} from '../../components/Button';
 import Header from '../../components/Header';
 import {CONTENT} from '../../constants/content';
 import {SCREENS} from '../../constants/navigationConstants';
-import {Colors, Spacing} from '../../styles';
 import {styles} from './styles';
 import Config from "react-native-config";
 import axios from 'axios';

@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity , Alert ,TouchableWithoutFeedback,
   Keyboard,
-  ActivityIndicator,
-  BackHandler,
-  Platform} from 'react-native';
+  BackHandler} from 'react-native';
 import {PrimaryButton} from '../../components/Button';
 import Header from '../../components/Header';
 import {CONTENT} from '../../constants/content';
@@ -18,9 +16,9 @@ const Otp = ({navigation , route}: any) => {
   const [Code, setCode] = useState(0);
   const [btnDisable, setBtnDisable] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [spinner, showspinner] = React.useState(false);
+  const [spinner, showspinner] = useState(false);
   const [id, setId] = useState('');
-  const [counter, setCounter] = React.useState(30);
+  const [counter, setCounter] = useState(30);
   useEffect(() => {
     if (counter > 0) {
       const interval = setInterval(() => {
@@ -89,7 +87,7 @@ const Otp = ({navigation , route}: any) => {
           if (result.status === false) {
             alert(result.message);
           }else{
-            navigation.navigate(SCREENS.FOLDER_LIST_EMPTY)
+            navigation.navigate(SCREENS.FOLDER_LIST)
           }
         } else {
           showspinner(false)

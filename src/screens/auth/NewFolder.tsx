@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {View, Text, SafeAreaView, Image, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, Image} from 'react-native';
 
 import Header from '../../components/Header';
 import SearchInput from '../../components/SearchInput';
 import {CONTENT} from '../../constants/content';
-import {PERSILE_FOLDER, PHONE} from '../../constants/iconConstants';
-import {Colors} from '../../styles';
+import {PERSILE_FOLDER} from '../../constants/iconConstants';
 
 import {styles} from './styles';
 
