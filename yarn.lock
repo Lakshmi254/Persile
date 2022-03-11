@@ -5845,6 +5845,11 @@
   "resolved" "https://registry.npmjs.org/react-native-eject/-/react-native-eject-0.1.2.tgz"
   "version" "0.1.2"
 
+"react-native-element-dropdown@^1.7.2":
+  "integrity" "sha512-V8KcNB/V2nk56PPR3FXe1yqTpPoJFgq+1FojO846sbR48mGCKKg4/FunSN/la00+G5JXlOIsdHGB0dRhNI/bkw=="
+  "resolved" "https://registry.npmjs.org/react-native-element-dropdown/-/react-native-element-dropdown-1.7.2.tgz"
+  "version" "1.7.2"
+
 "react-native-gesture-handler@^2.1.0", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-vF4yEUrV5GMBioTkvf5Le1l3N/52dSLBnNMFC+kZ4hssnRoXB0hEQ0ReUkZckRB5L3nbHBhAyjySEtFPx4nyEA=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.1.0.tgz"

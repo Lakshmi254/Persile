@@ -28,6 +28,7 @@
     "react-native": "0.66.4",
     "react-native-config": "^1.4.5",
     "react-native-eject": "^0.1.2",
+    "react-native-element-dropdown": "^1.7.2",
     "react-native-gesture-handler": "^2.1.0",
     "react-native-get-sms-android": "^2.1.0",
     "react-native-google-signin": "^2.1.1",

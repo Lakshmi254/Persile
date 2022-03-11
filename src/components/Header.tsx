@@ -35,7 +35,9 @@ function Header({icon, title}: any) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={back}>
       {icon && <Image style={styles.iconStyle} source={icon} />}
+      </TouchableOpacity>
       {title && <Text style={styles.title}>{title}</Text>}
     </View>
   );

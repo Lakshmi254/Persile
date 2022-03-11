@@ -11,6 +11,7 @@ import OTPTextView from 'react-native-otp-textinput';
 import Config from "react-native-config";
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { setItem } from "../../utils/asyncStorage";
 
 const Otp = ({navigation , route}: any) => {
   const [Code, setCode] = useState(0);
@@ -83,6 +84,7 @@ const Otp = ({navigation , route}: any) => {
         console.log("response data", response.data);
         const result = response.data;
         if (response.status === 200) {
+          setItem("user_Id", response?.data?.id);
           showspinner(false)
           if (result.status === false) {
             alert(result.message);

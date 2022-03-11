@@ -12,6 +12,7 @@ import {
 import {getItem, removeItem, setItem} from '../utils/asyncStorage';
 import {AUTH_TOKEN} from '../constants/appConstants';
 import {AuthContext} from './context';
+import HomeNavigator from "./HomeNavigator";
 
 const styles = StyleSheet.create({
   container: {
@@ -96,6 +97,7 @@ function MainStackNavigator() {
       },
     });
   };
+
   useEffect(() => {
     loadApp();
   }, []);
@@ -111,7 +113,13 @@ function MainStackNavigator() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <AuthNavigator />
+        {loginState?.userToken !== null ? (
+          <>
+            <HomeNavigator />
+          </>
+        ) : (
+          <AuthNavigator />
+          )}
       </NavigationContainer>
     </AuthContext.Provider>
   );

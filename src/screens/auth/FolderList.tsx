@@ -86,6 +86,10 @@ const handleBackButton = () => {
   return true;
 }
 
+const onfolderTap = (folder_name : string) => {
+  navigation.navigate(SCREENS.MESSAGE_LIST,{paramKey : folder_name});
+}
+
   React.useEffect(() => {
     fetchAllFoldersAPI()
       // Update the document title using the browser API
@@ -97,7 +101,7 @@ const handleBackButton = () => {
   const renderItem = ({item}: any) => {
     return (
       <View style={{width: '25%'}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => onfolderTap(item?.folderName)}>
         <Image source={PERSILE_FOLDER} style={{width: '100%', height: 50}} />
         <Text style={[styles.subText, {textAlign: 'center'}]}>
           {item?.folderName}

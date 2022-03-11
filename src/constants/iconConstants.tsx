@@ -7,4 +7,6 @@ export const PERSILE_FOLDER = require('../assets/images/persile_folder.png');
 export const PHONE = require('../assets/images/phone.png');
 export const SEARCH = require('../assets/images/search.png');
 export const GOOGLE = require('../assets/images/Glogo.png');
+export const backArrow = require('../assets/images/arrow.png');
+
 
