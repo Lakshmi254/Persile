@@ -15,12 +15,15 @@ import {
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Config from 'react-native-config';
+import { AuthContext } from '../../navigations/context';
+import { getItem, setItem } from '../../utils/asyncStorage';
 
 const Welcome = ({ navigation }: any) => {
   const IOS_CLIENT = '410231270996-rhuu5an1f7nqsp9d3t6971d64ofd0iuc.apps.googleusercontent.com';
   const ANDROID_CLIENT = '410231270996-c7mrngt4qgcn06vdqp67qf1i5bmn5h0l.apps.googleusercontent.com';
   const [userInfo, setUserInfo] = useState(null);
   const [gettingLoginStatus, setGettingLoginStatus] = useState(false);
+  const { signIn } = React.useContext(AuthContext);
 
   
   //Show Alert
@@ -40,6 +43,7 @@ const Welcome = ({ navigation }: any) => {
     setGettingLoginStatus(true)
     console.log("userInfo value", info.user);
     const userDeatils = info.user
+    console.log(" config",userDeatils.email);
     if (userDeatils.email !== null) {
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_CREATEUSER}`,
       {
@@ -55,6 +59,10 @@ const Welcome = ({ navigation }: any) => {
         const result = response.data;
         if (response.status === 200) {
           if (result.isNumberVerified === true) {
+            const userToken = result?.token;
+            signIn(userToken);
+            const resultData = result?.value
+            setItem("Phone_Number",resultData?.phoneNumber);
             navigation.navigate(SCREENS.FOLDER_LIST);
           } else {
             const id = result.value.id
@@ -65,9 +73,9 @@ const Welcome = ({ navigation }: any) => {
         }
       })
       .catch(function (error) {
+        console.log("response error", error);
         setGettingLoginStatus(false)
         alert(error);
-        //console.log("response error", error);
       });
     }
 
@@ -105,8 +113,17 @@ const Welcome = ({ navigation }: any) => {
     setGettingLoginStatus(false);
   };
 
+  
+
   //Method called on view appear
   useEffect(() => {
+    async function fetchMyPhoneNumber() {
+      const phonenumber = await getItem("Phone_Number");
+      console.log("phonenumber",phonenumber);
+    }
+
+    fetchMyPhoneNumber();
+
     var cliendId = ''
     if (Platform.OS === 'ios') {
       cliendId = IOS_CLIENT
@@ -124,7 +141,7 @@ const Welcome = ({ navigation }: any) => {
       webClientId: cliendId,
     });
     // Check if user is already signed in
-    _isSignedIn();
+   // _isSignedIn();
   }, []);
 
 

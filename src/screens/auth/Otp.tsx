@@ -12,6 +12,7 @@ import Config from "react-native-config";
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { setItem } from "../../utils/asyncStorage";
+import { AuthContext } from '../../navigations/context';
 
 const Otp = ({navigation , route}: any) => {
   const [Code, setCode] = useState(0);
@@ -19,7 +20,10 @@ const Otp = ({navigation , route}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [spinner, showspinner] = useState(false);
   const [id, setId] = useState('');
-  const [counter, setCounter] = useState(30);
+  const [counter, setCounter] = useState(30);  
+  const { signIn } = React.useContext(AuthContext);
+
+
   useEffect(() => {
     if (counter > 0) {
       const interval = setInterval(() => {
@@ -67,7 +71,7 @@ const Otp = ({navigation , route}: any) => {
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
     var phoneNumberIST = ""
-    if (Config.API_BASE_URL === "US") {
+    if (Config.COUNTRY_CODE === "US") {
       phoneNumberIST = "+1"+numertoPaa1
     } else {
       phoneNumberIST = "+91"+numertoPaa1
@@ -80,15 +84,18 @@ const Otp = ({navigation , route}: any) => {
         "id":id
       }).then(function (response) {
         showspinner(false)
-        console.log("response object", response);
-        console.log("response data", response.data);
+        console.log("response object otp", response);
+        console.log("response data otp", response.data);
         const result = response.data;
         if (response.status === 200) {
-          setItem("user_Id", response?.data?.id);
+          //setItem("user_Id", response?.data?.id);
           showspinner(false)
           if (result.status === false) {
             alert(result.message);
-          }else{
+          }else{  
+            const userToken = response?.data?.Id;
+            signIn(userToken);
+            setItem("Phone_Number",phoneNumberIST);
             navigation.navigate(SCREENS.FOLDER_LIST)
           }
         } else {
@@ -106,7 +113,7 @@ const Otp = ({navigation , route}: any) => {
     showspinner(true)   
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     var phoneNumberCode = ""
-    if (Config.API_BASE_URL === "US") {
+    if (Config.COUNTRY_CODE === "US") {
       phoneNumberCode = "+1"+numertoPaa
     } else {
       phoneNumberCode = "+91"+numertoPaa

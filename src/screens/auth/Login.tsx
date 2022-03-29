@@ -53,7 +53,7 @@ const Login = ({navigation , route}: any) => {
     const numertoPaa = phoneNumber.replace(/[( -)]/g,'');
     const numertoPaa1 = numertoPaa.replace(/[-)]/g,'');
     var phoneNumberCode = ""
-    if (Config.API_BASE_URL === "US") {
+    if (Config.COUNTRY_CODE === "US") {
        phoneNumberCode = "+1"+numertoPaa1
     } else {
        phoneNumberCode = "+91"+numertoPaa1
@@ -72,8 +72,8 @@ const Login = ({navigation , route}: any) => {
           if (result.status === false) {
             alert(result.message);
           }else{
-           // const passobject = [phoneNumber,id]
             navigation.navigate(SCREENS.OTP,{phone: phoneNumber , id : id})
+            
           }
         } else {
           showspinner(false)

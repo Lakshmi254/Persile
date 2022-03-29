@@ -9,4 +9,10 @@ export const SEARCH = require('../assets/images/search.png');
 export const GOOGLE = require('../assets/images/Glogo.png');
 export const backArrow = require('../assets/images/arrow.png');
 
+export const CANCEL = require('../assets/images/cancel.png');
+export const HOME = require('../assets/images/home.png');
+export const PROFILE = require('../assets/images/profile_gray.png');
+export const MORE = require('../assets/images/more.png');
+export const DOWN_ARROW = require('../assets/images/down-arrow.png');
+export const RIGHT_ARROW = require('../assets/images/right-arrow.png');
 

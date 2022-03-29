@@ -1,32 +1,47 @@
-import React from 'react';
-import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Colors, Spacing, Typography} from '../styles';
+import React from "react";
+import { View, Image, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Colors, Spacing, Typography } from "../styles";
+import { MORE } from "../constants/iconConstants";
 
 const styles = StyleSheet.create({
   title: {
     fontSize: Spacing.SCALE_20,
     fontFamily: Typography.FONT_FAMILY_BOLD,
     color: Colors.BLACK,
-    fontWeight: '600',
-    paddingHorizontal: '5%',
-    letterSpacing : 1
+    fontWeight: "600",
+    paddingHorizontal: "5%",
+    letterSpacing: 1,
   },
   container: {
-    flexDirection: 'row',
-    paddingHorizontal: '5%',
-    alignItems: 'center',
+    flexDirection: "row",
+    //paddingHorizontal: "5%",
+    alignItems: "center",
+    height: 50,
+    backgroundColor: Colors.PRIMARY,
+    justifyContent: "space-between",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    paddingHorizontal: "5%",
+    alignItems: "center",
     height: 50,
     backgroundColor: Colors.PRIMARY,
   },
   iconStyle: {
     height: 25,
     width: 25,
-    resizeMode: 'contain',
+  },
+  moreIcon: {
+    height: 20,
+    width: 20,
+    resizeMode: "contain",
+    tintColor: "black",
+    right : 20
   },
 });
 
-function Header({icon, title}: any) {
+function Header({ icon, title, more, shoeMoreoptions }: any) {
   const navigation = useNavigation();
 
   const back = () => {
@@ -35,10 +50,15 @@ function Header({icon, title}: any) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={back}>
-      {icon && <Image style={styles.iconStyle} source={icon} />}
+      <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={back}>
+          {icon && <Image style={styles.iconStyle} source={icon} />}
+        </TouchableOpacity>
+        {title && <Text style={styles.title}>{title}</Text>}
+      </View>
+      <TouchableOpacity onPress={shoeMoreoptions}>
+        {more && <Image style={styles.moreIcon} source={MORE} />}
       </TouchableOpacity>
-      {title && <Text style={styles.title}>{title}</Text>}
     </View>
   );
 }

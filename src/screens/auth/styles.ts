@@ -2,6 +2,14 @@ import {StyleSheet} from 'react-native';
 import {Colors, Spacing, Typography} from '../../styles';
 
 export const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    color : Colors.BLACK,
+    fontFamily: Typography.FONT_FAMILY_BOLD
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.WHITE
@@ -27,8 +35,9 @@ export const styles = StyleSheet.create({
     fontSize: Spacing.SCALE_14,
     fontWeight: '400',
     color: Colors.BLACK,
-    letterSpacing : 0.5,
-    textAlign: 'justify'
+    //letterSpacing : 0.5,
+    textAlign: 'justify',
+    fontFamily: Typography.FONT_FAMILY_REGULAR,
   },
   subContainer: {
     marginTop: '35%',
@@ -112,13 +121,12 @@ export const styles = StyleSheet.create({
     marginRight: 5,
   },
   label: {
-    position: 'absolute',
-    backgroundColor: 'Black',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
+    alignSelf: 'flex-start',
+    margin: 8,
     fontSize: 14,
+    color: Colors.BLACK,
+    fontFamily: Typography.FONT_FAMILY_REGULAR,
+
   },
   placeholderStyle: {
     fontSize: 16,
@@ -135,4 +143,83 @@ export const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+
+  moreListText: {
+    textAlign: "center",
+    color: "black",
+    padding: 5,
+    fontSize: 16,
+  },
+  morecontainer: {
+    position: "absolute",
+    zIndex: 999,
+    right: 8,
+    padding: 10,
+    top: 30,
+    backgroundColor: "#B0EBE7",
+    elevation: 10,
+    borderRadius: 7,
+    shadowColor: Colors.TERTIARY,
+    shadowOffset: { height: 1, width: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 2,
+  },
+  morecontainerIOS : {
+    position: "absolute",
+    zIndex: 999,
+    right: 8,
+    padding: 10,
+    top: 40,
+    backgroundColor: "#B0EBE7",
+    elevation: 10,
+    borderRadius: 7,
+    shadowColor: Colors.TERTIARY,
+    shadowOffset: { height: 1, width: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 2,
+  },
+  verticalLine: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+  },
+  //notesDeatails
+  checkboxContainer: {
+    height : 30,
+    width: 30,
+    flexDirection: "row",
+    marginBottom: 10,
+    marginLeft : 10
+  },
+  checkbox: {
+    alignSelf: "center",
+    color : '#97CAC7'
+  },
+  markLabel:{
+    fontFamily : Typography.FONT_FAMILY_REGULAR,
+    fontSize : 14,
+    color : 'black',
+    padding: 5,
+    marginLeft : 10
+
+  },
+  fabButton : {
+    width: 200,  
+    height: 60,   
+    borderRadius: 30,            
+    backgroundColor: '#97CAC7',                                    
+    position: 'absolute',                                          
+    bottom: 10,                                                    
+    right: 10,
+    color:'black',
+    textAlign:'center',
+    alignItems: 'center',
+    paddingTop : 10
+  },
+
+  //notesDeatail screen 
+  messageText:{
+    color:'black',
+    fontSize : 14,
+    fontFamily : Typography.FONT_FAMILY_MEDIUM
+  }
 });

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View, ActivityIndicator, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from '../styles';
@@ -13,6 +13,7 @@ import {getItem, removeItem, setItem} from '../utils/asyncStorage';
 import {AUTH_TOKEN} from '../constants/appConstants';
 import {AuthContext} from './context';
 import HomeNavigator from "./HomeNavigator";
+import { GoogleSignin } from 'react-native-google-signin';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,12 +28,14 @@ function MainStackNavigator() {
   const dispatch = useDispatch();
 
   const loginState = useSelector(userSessionSelectors.getUserLoginStatusState);
-  console.log(loginState.isLoading);
+  console.log('kkk',loginState);
 
   const authContext = useMemo(
     () => ({
       signIn: async (foundUser: any) => {
         const userToken = String(foundUser);
+        console.log('userlogen signin',userToken);
+
         try {
           await setItem(AUTH_TOKEN, userToken);
         } catch (e) {
@@ -63,9 +66,13 @@ function MainStackNavigator() {
           },
         });
       },
-      signOut: async () => {
+      signOut: async () => {       
+         console.log('userlogen signoutttttttttttttttt');
         try {
           await removeItem(AUTH_TOKEN);
+          await AsyncStorage.clear();
+          await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
         } catch (e) {
           console.log(e);
         }

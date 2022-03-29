@@ -10,15 +10,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     borderRadius: 4,
     borderColor: Colors.PRIMARY,
-    height: 48,
+    //height: 48,
     justifyContent: 'center',
+    alignSelf: 'stretch',
   },
 });
 
 const SearchInput = (props: any) => {
   const searchInputData = props;
   return (
-    <View>
+    <View style={{height: 50}}>
       <TextInput
         selectionColor={Colors.SECONDARY}
         maxLength={50}

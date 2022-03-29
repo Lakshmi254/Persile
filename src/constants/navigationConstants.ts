@@ -6,4 +6,6 @@ export const SCREENS = {
   FOLDER_LIST_EMPTY: 'FolderListEmpty',
   NEW_FOLDER: 'NewFolder',
   MESSAGE_LIST : 'MessageList',
+  NOTES_LIST : 'NotesList',
+  NOTES_DETAIL : 'NotesDetail'
 };
