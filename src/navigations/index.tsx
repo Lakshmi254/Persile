@@ -14,6 +14,7 @@ import {AUTH_TOKEN} from '../constants/appConstants';
 import {AuthContext} from './context';
 import HomeNavigator from "./HomeNavigator";
 import { GoogleSignin } from 'react-native-google-signin';
+import TabStack from './BottomTabs';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,7 +72,6 @@ function MainStackNavigator() {
         try {
           await removeItem(AUTH_TOKEN);
           await AsyncStorage.clear();
-          await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
         } catch (e) {
           console.log(e);

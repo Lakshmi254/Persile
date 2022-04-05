@@ -7,5 +7,6 @@ export const SCREENS = {
   NEW_FOLDER: 'NewFolder',
   MESSAGE_LIST : 'MessageList',
   NOTES_LIST : 'NotesList',
-  NOTES_DETAIL : 'NotesDetail'
+  NOTES_DETAIL : 'NotesDetail',
+  PROFILE_VIEW : 'ProfileView'
 };

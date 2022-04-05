@@ -108,19 +108,6 @@ const FolderList = ({ navigation }: any) => {
     fetchMyPhoneNumber();
   }, [])
 
-  // React.useEffect(() => {
-  //   fetchAllFoldersAPI();
-  //   const phonenumber = await getItem("Phone_Number");
-  //   console.log('phonenumber' , phonenumber);
-  //  // setFilteredDataSource(DATAIS);
-  //   // Update the document title using the browser API
-  //   const unsubscribe = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     handleBackButton
-  //   );
-  //   return () => null;
-  // }, []);
-
   const renderItem = ({ item }: any) => {
     return (
       <View style={{ width: "25%" }}>
@@ -141,7 +128,6 @@ const FolderList = ({ navigation }: any) => {
   };
   const logout = () => {
     console.log('userfiles;isttttttt');
-
     signOut();
   };
   const handleOutsideTouch = (e: any) => {
