@@ -24,6 +24,7 @@ import { Button, FAB } from "react-native-paper";
 import { SCREENS } from "../../constants/navigationConstants";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { getItem } from "../../utils/asyncStorage";
+import { PrimaryButton } from "../../components/Button";
 
 const MessageList = ({ navigation, route }: any) => {
   const [spinner, showspinner] = useState(false);
@@ -92,14 +93,14 @@ const MessageList = ({ navigation, route }: any) => {
   const onCloseModel = () => {
     setisConfirm(false);
   };
-  const onPressAction = (item: any) => {
+  const onPressAction = () => {
     setisConfirm(true);
-    setTaskData(item);
+    setTaskData();
   };
   const onCreateTask = (task: string) => {
     setisConfirm(false);
     const reqData = {
-      id: taskData.id,
+      id: paramKey.folder_id,
       type: task,
     };
     addTaskNote(reqData);
@@ -147,12 +148,12 @@ const MessageList = ({ navigation, route }: any) => {
         <View style={{ width: "80%" }}>
           <Text style={[styles.subText]}>{item?.message}</Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => onPressAction(item)}
           style={{ alignSelf: "center", alignItems: "center" ,height: 30, width: 40}}
         >
           <Image source={DOWN_ARROW} style={{ height: 20, width: 20 , marginRight : 5}} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   };
@@ -164,6 +165,12 @@ const MessageList = ({ navigation, route }: any) => {
         textContent={''}
         textStyle={styles.spinnerTextStyle}
       />
+      <View style={{padding : "5%" , justifyContent : 'flex-end'}}>
+      <PrimaryButton
+            onPress={() => onPressAction()}
+            title="Assign"
+          />
+      </View>
       <FlatList
         data={masterDataSource}
         renderItem={renderItem}

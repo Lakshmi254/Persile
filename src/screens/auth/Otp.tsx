@@ -96,7 +96,7 @@ const Otp = ({navigation , route}: any) => {
             const userToken = response?.data?.Id;
             signIn(userToken);
             setItem("Phone_Number",phoneNumberIST);
-            navigation.navigate(SCREENS.FOLDER_LIST)
+            navigation.navigate(SCREENS.PROFILE_VIEW)
           }
         } else {
           showspinner(false)

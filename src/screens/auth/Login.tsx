@@ -88,7 +88,8 @@ const Login = ({navigation , route}: any) => {
   const handleBackButton = () => {
     //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
-}
+ }
+ 
   useEffect(() => {
     // Update the document title using the browser API
     setId(route.params)

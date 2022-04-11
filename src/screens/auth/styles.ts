@@ -119,6 +119,15 @@ export const styles = StyleSheet.create({
   icon: {
     marginRight: 5,
   },
+  pencilicon: {
+    //backgroundColor: 'black',
+    //marginLeft:"30%",
+    position: 'absolute',
+    color: 'black',
+    bottom: 0,
+    left: 0
+   },
+
   label: {
     alignSelf: 'flex-start',
     margin: 8,
@@ -223,6 +232,10 @@ export const styles = StyleSheet.create({
   },
 
   /* profile view */
+  Profilecontainer:{
+    flex : 1,
+    justifyContent : 'center'
+  },
  
   avatar: {
     width: 130,
@@ -247,12 +260,12 @@ export const styles = StyleSheet.create({
     color:"#FFFFFF",
     fontWeight:'600',
   },
-  body:{
-    marginTop:40,
+  imageContainerView:{
+    justifyContent : 'center',
+    alignItems : 'center',
+    marginTop : 40
   },
   bodyContent: {
-    flex: 1,
-    alignItems: 'center',
     padding:30,
   },
   info:{

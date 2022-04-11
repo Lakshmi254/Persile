@@ -3,6 +3,9 @@ export const CONTENT = {
   //phone number
   SUBMIT: 'SUBMIT',
   PHONE_NUMBER: 'Phone Number',
+  FIRST_NAME: 'First Name',
+  LAST_NAME: 'Last Name',
+  EMAIL: 'Email Id',
   PHONE_NUMBER1: 'Enter in your phone number\nso we know it’s you.',
   //otp
   ENTER_CODE: 'Enter Code',

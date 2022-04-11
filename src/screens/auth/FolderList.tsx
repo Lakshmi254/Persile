@@ -93,8 +93,8 @@ const FolderList = ({ navigation }: any) => {
       });
   };
 
-  const onfolderTap = (folder_name: string) => {
-    const dataObject = {'folder_name' : folder_name , "phone_number" : phoneNumber}
+  const onfolderTap = (folder_name: string , folder_id : string) => {
+    const dataObject = {'folder_name' : folder_name , "phone_number" : phoneNumber , "folder_id": folder_id }
     navigation.navigate(SCREENS.MESSAGE_LIST, { paramKey: dataObject });
   };
 
@@ -111,7 +111,7 @@ const FolderList = ({ navigation }: any) => {
   const renderItem = ({ item }: any) => {
     return (
       <View style={{ width: "25%" }}>
-        <TouchableOpacity style={{margin : 5}} onPress={() => onfolderTap(item?.folderName)}>
+        <TouchableOpacity style={{margin : 5}} onPress={() => onfolderTap(item?.folderName , item?.id)}>
           <Image
             source={PERSILE_FOLDER}
             style={{ width: "100%", height: 50 }}

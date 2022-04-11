@@ -14,16 +14,6 @@ const NewFolder = ({navigation}: any) => {
   const onChangeSearch = (text: any) => {
     setSearchText(text);
   };
-  const folderList = [
-    {
-      name: 'Priorities',
-      icon: PERSILE_FOLDER,
-    },
-    {
-      name: '#breakfast',
-      icon: PERSILE_FOLDER,
-    },
-  ];
 
   const renderItem = ({item}: any) => {
     return (

@@ -6,6 +6,7 @@ import { SCREENS } from '../../constants/navigationConstants';
 import { Colors } from '../../styles';
 import { styles } from './styles';
 import Spinner from 'react-native-loading-spinner-overlay';
+import HomeNavigator  from '../../navigations/HomeNavigator';
 
 // Import Google Signin
 import {
@@ -55,7 +56,7 @@ const Welcome = ({ navigation }: any) => {
         hasDriveAccess: true
       }).then(function (response) {
         setGettingLoginStatus(false)
-        console.log("response data", response.data);
+        console.log("response data",response.data);
         const result = response.data;
         if (response.status === 200) {
           if (result.isNumberVerified === true) {
@@ -63,7 +64,9 @@ const Welcome = ({ navigation }: any) => {
             signIn(userToken);
             const resultData = result?.value
             setItem("Phone_Number",resultData?.phoneNumber);
-            navigation.navigate(SCREENS.FOLDER_LIST);
+            const user_info = {gmail : info , activeUser : resultData}
+            setItem("Active_User",JSON.stringify(user_info));
+            navigation.navigate(HomeNavigator);
           } else {
             const id = result.value.id
             navigation.navigate(SCREENS.LOGIN, id);

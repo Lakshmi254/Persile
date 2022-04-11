@@ -5,8 +5,7 @@ import {Typography, Colors, Spacing} from '../styles';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import {HOME, PROFILE} from '../constants/iconConstants';
-import FolderList from '../screens/auth/FolderList';
-import ProfileView from '../screens/ProfileView';
+import ProfileView from '../screens/auth/ProfileView';
 import HomeNavigator from './HomeNavigator';
 
 const Tab = createBottomTabNavigator();

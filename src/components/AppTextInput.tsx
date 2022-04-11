@@ -35,6 +35,7 @@ const AppTextInput = (props: any) => {
         right={inputData.right}
         returnKeyType={inputData.returnKeyType}
         keyboardType={inputData.keyboardType}
+        disabled={inputData.disable}
       />
       <HelperText
         style={{color: Colors.RED}}

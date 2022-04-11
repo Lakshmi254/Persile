@@ -8,7 +8,7 @@ export const PHONE = require('../assets/images/phone.png');
 export const SEARCH = require('../assets/images/search.png');
 export const GOOGLE = require('../assets/images/Glogo.png');
 export const backArrow = require('../assets/images/arrow.png');
-
+export const userImage = require('../assets/images/user.png');
 export const CANCEL = require('../assets/images/cancel.png');
 export const HOME = require('../assets/images/home.png');
 export const PROFILE = require('../assets/images/profile_gray.png');
