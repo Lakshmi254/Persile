@@ -53,10 +53,10 @@ const MessageList = ({ navigation, route }: any) => {
         console.log("response messages from folder", response.data);
         const result = response.data;
         if (response.status === 200) {
-          var aquaticCreatures = result.value.filter(function (creature) {
-            return creature.messageType == "unassigned";
-          });
-          setMasterDataSource(aquaticCreatures);
+          // var aquaticCreatures = result.value.filter(function (creature) {
+          //   return creature.messageType == "unassigned";
+          // });
+          setMasterDataSource(result.value);
         } else {
           alert(result.message);
         }
@@ -114,7 +114,7 @@ const MessageList = ({ navigation, route }: any) => {
     showspinner(true);
     axios
       .post(
-        `${Config.API_BASE_URL}${Config.API_ENDPOINT_ASSIGNMESSAGETYPE}`,
+        `${Config.API_BASE_URL}${Config.API_ENDPOINT_ASSIGNFOLDERTYPE}`,
         reqData
       )
       .then(function (response) {
@@ -145,8 +145,11 @@ const MessageList = ({ navigation, route }: any) => {
           padding: 15,
         }}
       >
-        <View style={{ width: "80%" }}>
+        <View style={{ width: "60%" }}>
           <Text style={[styles.subText]}>{item?.message}</Text>
+        </View>
+        <View style={{ alignSelf: "center", alignItems: "center" ,height: 30}}>
+          <Text style={styles.assignText}>{item?.messageType}</Text>
         </View>
         {/* <TouchableOpacity
           onPress={() => onPressAction(item)}
@@ -165,7 +168,7 @@ const MessageList = ({ navigation, route }: any) => {
         textContent={''}
         textStyle={styles.spinnerTextStyle}
       />
-      <View style={{padding : "5%" , justifyContent : 'flex-end'}}>
+      <View style={{padding : "5%" , width : "50%" ,  alignSelf : 'flex-end'}}>
       <PrimaryButton
             onPress={() => onPressAction()}
             title="Assign"
@@ -235,7 +238,7 @@ const MessageList = ({ navigation, route }: any) => {
           </View>
         </View>
       </Modal>
-      <Button color="black" style={styles.fabButton}
+      {/* <Button color="black" style={styles.fabButton}
         onPress={() => onNotesTaskTap()} labelStyle={{
           fontSize: 16,
           fontWeight: "600"
@@ -243,7 +246,7 @@ const MessageList = ({ navigation, route }: any) => {
         uppercase={false}
         >
         Task/Notes
-      </Button>
+      </Button> */}
 
     </SafeAreaView>
   );

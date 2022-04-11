@@ -10,6 +10,10 @@ export const styles = StyleSheet.create({
     color : Colors.BLACK,
     fontFamily: Typography.FONT_FAMILY_BOLD
   },
+  primaryButton:{
+    width: "80",
+    fontSize : 16
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.WHITE
@@ -31,8 +35,15 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   subText: {
-    fontSize: Spacing.SCALE_14,
+    fontSize: Spacing.SCALE_16,
     fontWeight: '400',
+    color: Colors.BLACK,
+    //letterSpacing : 0.5,
+    textAlign: 'justify',
+    fontFamily: Typography.FONT_FAMILY_REGULAR,
+  },
+  assignText:{
+    fontSize: Spacing.SCALE_14,
     color: Colors.BLACK,
     //letterSpacing : 0.5,
     textAlign: 'justify',
