@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TouchableOpacity, SafeAreaView, Image, BackHandler, Alert, Platform, PermissionsAndroid } from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Image, BackHandler, Alert, Platform, PermissionsAndroid, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/Header';
 import { backArrow, userImage } from '../../constants/iconConstants';
@@ -14,9 +14,11 @@ import ActionSheet from 'react-native-action-sheet';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Config } from 'react-native-config';
 import axios from 'axios';
+import { AuthContext } from '../../navigations/context';
 import HomeNavigator from '../../navigations/HomeNavigator';
+import { useIsFocused } from '@react-navigation/native';
 
-const ProfileView = ({ navigation }: any) => {
+const ProfileView = ({ navigation , route }: any) => {
   const [firstName, setFirstName] = useState('');
   const [lastNmae, setLastName] = useState('');
   const [phoneNumber, setPhneNumber] = useState('');
@@ -30,6 +32,9 @@ const ProfileView = ({ navigation }: any) => {
   const [filePath, setFilePath] = useState({});
   const [spinner, showspinner] = React.useState(false);
   const [activeUserId, setActiveUserId] = useState('');
+  const [userToken, setUserToken] = useState('');
+  const { signIn } = React.useContext(AuthContext);
+  const isFocused = useIsFocused();
 
   var options = [
     'Camera',
@@ -38,15 +43,22 @@ const ProfileView = ({ navigation }: any) => {
   ];
   var DESTRUCTIVE_INDEX = 2;
   var CANCEL_INDEX = 4;
+
+  const actionCall = () => {
+    signIn(userToken); 
+    //navigation.navigate(HomeNavigator); 
+  }
+
   //Show Alert
-  const alert = (message: string | undefined , Action : boolean) =>
+  const alert = (message: string | undefined , Action : boolean) => {
     Alert.alert(
       "",
       message,
       [
-        { text: "OK", onPress: () => Action === true ? navigation.navigate(HomeNavigator) : console.log("OK Pressed") }
+        { text: "OK", onPress: () => Action === true && actionCall()  }
       ]
     );
+  }
   /* permissions */
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -81,7 +93,7 @@ const ProfileView = ({ navigation }: any) => {
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
         console.warn(err);
-        alert('Write permission err', err);
+        alert(err,false);
       }
       return false;
     } else return true;
@@ -243,7 +255,7 @@ const ProfileView = ({ navigation }: any) => {
       options: options,
       cancelButtonIndex: CANCEL_INDEX,
       destructiveButtonIndex: DESTRUCTIVE_INDEX,
-      tintColor: 'blue'
+      tintColor: '#24a0ed'
     },
       (buttonIndex) => {
         console.log('button clicked :', buttonIndex);
@@ -271,7 +283,7 @@ const ProfileView = ({ navigation }: any) => {
 
   };
 
-  const getuserDetailsByPhone = (phone: String) => {
+  const getuserDetailsByPhone = (phone: any) => {
     showspinner(true)
     axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_GETUSERBYPHONE}`,
       {
@@ -314,27 +326,41 @@ const ProfileView = ({ navigation }: any) => {
     //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
   }
+  const setUserDataOnFromLocal = (gmail_details : any , phone_Number : any) => {
+    setFirstName(gmail_details.user.givenName)
+    setLastName(gmail_details.user.familyName)
+    setEmailID(gmail_details.user.email)
+    setPhneNumber(phone_Number)
+  }
+
   useEffect(() => {
     async function fetchuserInfo() {
+      if(isFocused){ 
+
       const userInfo = await getItem("Active_User");
+      const phone_Number = await getItem("Phone_Number");
       setUserInfo(userInfo)
       const userDetails = JSON.parse(userInfo)
       const active_user = userDetails.activeUser
       const gmail_details = userDetails.gmail
       setFilePath(gmail_details.user.photo)
       setActiveUserId(active_user.id)
+      setUserToken(active_user.id)
+      setUserDataOnFromLocal(gmail_details , phone_Number)
       /* API Call to fetch Active user Data*/
-      getuserDetailsByPhone(active_user.phoneNumber);
-    }
+      getuserDetailsByPhone(phone_Number);
+      }
+      }
+
     fetchuserInfo()
     // Update the document title using the browser API
     const unsubscribe = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => null
-  }, []);
-
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <ScrollView>
       <Spinner
         visible={spinner}
         textContent={'Loading...'}
@@ -396,6 +422,7 @@ const ProfileView = ({ navigation }: any) => {
           />
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

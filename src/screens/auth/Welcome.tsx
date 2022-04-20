@@ -37,6 +37,9 @@ const Welcome = ({ navigation }: any) => {
       ]
     );
 
+    const setDataToAsyncStorage = async (user_info) => {
+     await setItem("Active_User",JSON.stringify(user_info));
+    }
    
 
   //API Call to create user in the backend
@@ -59,13 +62,13 @@ const Welcome = ({ navigation }: any) => {
         console.log("response data",response.data);
         const result = response.data;
         if (response.status === 200) {
+          const resultData = result?.value
+          const user_info = {gmail : info , activeUser : resultData}
+          setDataToAsyncStorage(user_info)
           if (result.isNumberVerified === true) {
             const userToken = result?.token;
             signIn(userToken);
-            const resultData = result?.value
             setItem("Phone_Number",resultData?.phoneNumber);
-            const user_info = {gmail : info , activeUser : resultData}
-            setItem("Active_User",JSON.stringify(user_info));
             navigation.navigate(HomeNavigator);
           } else {
             const id = result.value.id

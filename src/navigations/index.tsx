@@ -122,7 +122,7 @@ function MainStackNavigator() {
       <NavigationContainer>
         {loginState?.userToken !== null ? (
           <>
-            <HomeNavigator />
+            <TabStack />
           </>
         ) : (
           <AuthNavigator />

@@ -6,6 +6,7 @@ export const CONTENT = {
   FIRST_NAME: 'First Name',
   LAST_NAME: 'Last Name',
   EMAIL: 'Email Id',
+  FOLDER_Name: 'Folder Name',
   PHONE_NUMBER1: 'Enter in your phone number\nso we know it’s you.',
   //otp
   ENTER_CODE: 'Enter Code',

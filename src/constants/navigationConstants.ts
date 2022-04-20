@@ -8,5 +8,7 @@ export const SCREENS = {
   MESSAGE_LIST : 'MessageList',
   NOTES_LIST : 'NotesList',
   NOTES_DETAIL : 'NotesDetail',
-  PROFILE_VIEW : 'ProfileView'
+  PROFILE_VIEW : 'ProfileView',
+  PROFILE_HOME_VIEW : 'ProfileView'
+
 };

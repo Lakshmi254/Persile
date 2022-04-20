@@ -7,6 +7,7 @@ import NewFolder from '../screens/auth/NewFolder';
 import MessageList from '../screens/auth/MessageList';
 import NotesList from '../screens/auth/NotesList';
 import NotesDetail from '../screens/auth/Notesdetail';
+import ProfileHomeView from '../screens/auth/ProfileView';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,7 @@ const HomeNavigator = () => (
     <Stack.Screen name={SCREENS.NEW_FOLDER} component={NewFolder} />
     <Stack.Screen name={SCREENS.NOTES_LIST} component={NotesList} />
     <Stack.Screen name={SCREENS.NOTES_DETAIL} component={NotesDetail} />
-
+    {/* <Stack.Screen name={SCREENS.PROFILE_HOME_VIEW} component={ProfileHomeView} options={{gestureEnabled: false}}/> */}
   </Stack.Navigator>
 );
 

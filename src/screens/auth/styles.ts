@@ -2,6 +2,53 @@ import {StyleSheet} from 'react-native';
 import {Colors, Spacing, Typography} from '../../styles';
 
 export const styles = StyleSheet.create({
+  //modal view styles
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  input: {
+    height: 40,
+  },
+  modalView: {
+    //margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+   // padding: 40,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: Colors.PRIMARY,
+  },
+  textStyle: {
+    color: Colors.WHITE,
+    fontFamily : Typography.FONT_FAMILY_BOLD,
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontFamily : Typography.FONT_FAMILY_REGULAR,
+    fontSize : 16
+  },
   fab: {
     position: 'absolute',
     margin: 16,
@@ -28,6 +75,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding : "5%"
   },
   container1: {
     flex: 1,

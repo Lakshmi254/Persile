@@ -10,6 +10,8 @@ import {
   Platform,
   Alert,
   TouchableWithoutFeedback,
+  Modal,
+  TextInput
 } from "react-native";
 import { Config } from "react-native-config";
 import Header from "../../components/Header";
@@ -24,6 +26,10 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../../navigations/context";
 import { getItem } from "../../utils/asyncStorage";
+import { PrimaryButton } from "../../components/Button";
+import AppTextInput from "../../components/AppTextInput";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { IconButton } from 'react-native-paper';
 
 const FolderList = ({ navigation }: any) => {
   const [searchText, setSearchText] = useState("");
@@ -34,6 +40,10 @@ const FolderList = ({ navigation }: any) => {
   const [visible, setVisible] = useState(false);
   const menuRef = React.useRef(null);
   const { signOut } = React.useContext(AuthContext);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [text, onChangeText] = React.useState("");
+  const [newFolderName, setNewFolder] = React.useState("");
+  const [ErrorMsg, folderErrorMsg] = useState(null as any);
 
   const onChangeSearch = (text: any) => {
     // Check if searched text is not blank
@@ -57,6 +67,37 @@ const FolderList = ({ navigation }: any) => {
       setSearchText(text);
     }
   };
+  const addFoldersAPI = () => {
+    setModalVisible(!modalVisible)
+    showspinner(true);
+    axios
+      .post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_CREATEFOLDER}`, {
+        folder_name: newFolderName,
+        number_from: phoneNumber
+      })
+      .then(function (response) {
+        console.log("response object", response);
+        console.log("response data", response.data);
+        const result = response.data;
+        if (response.status === 200) {
+          fetchAllFoldersAPI(phoneNumber);
+        } else {
+          showspinner(false);
+          alert(result.message);
+        }
+      })
+      .catch(function (error) {
+        showspinner(false);
+        console.log("response error", error);
+      });
+  };
+
+
+  // add folder action
+  const onAddFolderAction = () => {
+    setNewFolder("");
+    setModalVisible(!modalVisible)
+  }
 
   //Show Alert
   const alert = (message: string | undefined) =>
@@ -64,7 +105,7 @@ const FolderList = ({ navigation }: any) => {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  const fetchAllFoldersAPI = (phone : String) => {
+  const fetchAllFoldersAPI = (phone: String) => {
     showspinner(true);
     axios
       .post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_GETALLFOLDERS}`, {
@@ -93,8 +134,8 @@ const FolderList = ({ navigation }: any) => {
       });
   };
 
-  const onfolderTap = (folder_name: string , folder_id : string) => {
-    const dataObject = {'folder_name' : folder_name , "phone_number" : phoneNumber , "folder_id": folder_id }
+  const onfolderTap = (folder_name: string, folder_id: string) => {
+    const dataObject = { 'folder_name': folder_name, "phone_number": phoneNumber, "folder_id": folder_id }
     navigation.navigate(SCREENS.MESSAGE_LIST, { paramKey: dataObject });
   };
 
@@ -111,7 +152,7 @@ const FolderList = ({ navigation }: any) => {
   const renderItem = ({ item }: any) => {
     return (
       <View style={{ width: "25%" }}>
-        <TouchableOpacity style={{margin : 5}} onPress={() => onfolderTap(item?.folderName , item?.id)}>
+        <TouchableOpacity style={{ margin: 5 }} onPress={() => console.log("dfws") /*onfolderTap(item?.folderName, item?.id)*/}>
           <Image
             source={PERSILE_FOLDER}
             style={{ width: "100%", height: 50 }}
@@ -123,6 +164,23 @@ const FolderList = ({ navigation }: any) => {
       </View>
     );
   };
+
+  const folderNameChange = (text: string) => {
+    if (text) {
+      setNewFolder(text);
+      folderErrorMsg(null)
+    } else {
+      setNewFolder('')
+    }
+  };
+  const onSaveFolderName = () => {
+    if (newFolderName.length <= 0) {
+      folderErrorMsg('Please enter valid Folder Name.');
+    } else {
+      //call api to save folder name
+      addFoldersAPI();
+    }
+  }
   const showMoreoptions = () => {
     setVisible(true);
   };
@@ -158,7 +216,7 @@ const FolderList = ({ navigation }: any) => {
         shoeMoreoptions={showMoreoptions}
       />
       {visible && (
-        <View style={Platform.OS === 'ios' ?styles.morecontainerIOS : styles.morecontainer} ref={menuRef}>
+        <View style={Platform.OS === 'ios' ? styles.morecontainerIOS : styles.morecontainer} ref={menuRef}>
           <Text style={styles.moreListText}>Settings</Text>
           <View style={styles.verticalLine} />
           <TouchableOpacity style={{ marginTop: 10 }} onPress={logout}>
@@ -167,6 +225,47 @@ const FolderList = ({ navigation }: any) => {
         </View>
       )}
 
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={{ backgroundColor: '#808080aa', flex: 1, justifyContent: 'center' }}>
+          <View style={{ backgroundColor: "white", padding: 60, borderRadius: 9, alignSelf: 'center', justifyContent: 'center' }}>
+          <IconButton 
+    icon="close"
+    size={30}
+    onPress={() => setModalVisible(!modalVisible)}
+       style={{
+           position: 'absolute',
+           //left: 0,
+           right: 0,
+           top: 0,
+           bottom: 0,
+        }}/>
+            <Text style={styles.modalText}>Please Enter folder name.</Text>
+           <View>
+            <AppTextInput
+              value={newFolderName}
+              //label={CONTENT.FOLDER_Name.toUpperCase()}
+              onChange={(text: any) => folderNameChange(text)}
+              ErrorMsg={ErrorMsg}
+              keyboardType="default"
+            />
+            </View>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => onSaveFolderName()}
+            >
+              <Text style={styles.textStyle}>SAVE</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <TouchableWithoutFeedback onPress={handleOutsideTouch}>
         <View style={styles.container1}>
           <SearchInput
@@ -188,13 +287,11 @@ const FolderList = ({ navigation }: any) => {
 
       <View
         style={{
-          flex: 1,
           justifyContent: "flex-end",
-
           marginBottom: 30,
         }}
       >
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        {/* <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <View
             style={{
               width: "15%",
@@ -206,7 +303,13 @@ const FolderList = ({ navigation }: any) => {
           <Text style={[styles.subText, { marginTop: 10 }]}>
             {CONTENT.FOLDER_CONTENT}
           </Text>
-        </View>
+        </View> */}
+      </View>
+      <View >
+        <PrimaryButton
+          onPress={() => onAddFolderAction()}
+          title="Add Folder +"
+        />
       </View>
     </SafeAreaView>
   );

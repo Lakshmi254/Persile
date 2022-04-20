@@ -57,6 +57,9 @@ const MessageList = ({ navigation, route }: any) => {
           //   return creature.messageType == "unassigned";
           // });
           setMasterDataSource(result.value);
+          if (result.value == undefined) {
+            alert('Your folder has no messages.');
+          }
         } else {
           alert(result.message);
         }

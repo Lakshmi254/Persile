@@ -21,7 +21,6 @@ const Otp = ({navigation , route}: any) => {
   const [spinner, showspinner] = useState(false);
   const [id, setId] = useState('');
   const [counter, setCounter] = useState(30);  
-  const { signIn } = React.useContext(AuthContext);
 
 
   useEffect(() => {
@@ -93,10 +92,10 @@ const Otp = ({navigation , route}: any) => {
           if (result.status === false) {
             alert(result.message);
           }else{  
-            const userToken = response?.data?.Id;
-            signIn(userToken);
+            const userTokenIS = response?.data?.id;
+            //signIn(userToken);
             setItem("Phone_Number",phoneNumberIST);
-            navigation.navigate(SCREENS.PROFILE_VIEW)
+            navigation.navigate(SCREENS.PROFILE_VIEW , {userToken : userTokenIS})
           }
         } else {
           showspinner(false)

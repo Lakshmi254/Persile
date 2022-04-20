@@ -24,7 +24,7 @@ export const SharedStyles = StyleSheet.create({
     letterSpacing : 1
   },
   sharedButtonTitle: {
-    fontSize: Spacing.SCALE_14,
+    fontSize: Spacing.SCALE_16,
     textAlign: 'center',
     letterSpacing : 1,
     fontWeight: '500',
