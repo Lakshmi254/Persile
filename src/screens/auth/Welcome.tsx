@@ -81,7 +81,7 @@ const Welcome = ({ navigation }: any) => {
       .catch(function (error) {
         console.log("response error", error);
         setGettingLoginStatus(false)
-        alert(error);
+        alert("Please try again after sometime.");
       });
     }
 

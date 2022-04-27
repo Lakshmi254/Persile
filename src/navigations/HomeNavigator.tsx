@@ -21,11 +21,10 @@ const HomeNavigator = () => (
       name={SCREENS.FOLDER_LIST_EMPTY}
       component={FolderListEmpty}
     />
-    <Stack.Screen name={SCREENS.MESSAGE_LIST} component={MessageList} />
     <Stack.Screen name={SCREENS.NEW_FOLDER} component={NewFolder} />
     <Stack.Screen name={SCREENS.NOTES_LIST} component={NotesList} />
     <Stack.Screen name={SCREENS.NOTES_DETAIL} component={NotesDetail} />
-    {/* <Stack.Screen name={SCREENS.PROFILE_HOME_VIEW} component={ProfileHomeView} options={{gestureEnabled: false}}/> */}
+    <Stack.Screen name={SCREENS.MESSAGE_LIST} component={MessageList} />
   </Stack.Navigator>
 );
 

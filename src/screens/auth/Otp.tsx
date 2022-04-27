@@ -105,6 +105,7 @@ const Otp = ({navigation , route}: any) => {
       .catch(function (error) {
         showspinner(false)
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   }
 
@@ -136,6 +137,7 @@ const Otp = ({navigation , route}: any) => {
       .catch(function (error) {
         showspinner(false)
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   }
 

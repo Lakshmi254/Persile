@@ -15,4 +15,6 @@ export const PROFILE = require('../assets/images/profile_gray.png');
 export const MORE = require('../assets/images/more.png');
 export const DOWN_ARROW = require('../assets/images/down-arrow.png');
 export const RIGHT_ARROW = require('../assets/images/right-arrow.png');
+export const TASK_ICON = require('../assets/images/Vector.png');
+export const NOTE_ICON = require('../assets/images/Vector1.png');
 

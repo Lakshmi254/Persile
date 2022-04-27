@@ -1,5 +1,6 @@
 export const CONTENT = {
   PERSILE: 'Persile',
+  TASKORNOTE: 'Tasks/Notes',
   //phone number
   SUBMIT: 'SUBMIT',
   PHONE_NUMBER: 'Phone Number',

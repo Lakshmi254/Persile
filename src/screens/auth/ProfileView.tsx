@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { View, TouchableOpacity, SafeAreaView, Image, BackHandler, Alert, Platform, PermissionsAndroid, ScrollView } from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Image, BackHandler, Alert, Platform, PermissionsAndroid, ScrollView, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/Header';
-import { backArrow, userImage } from '../../constants/iconConstants';
+import { backArrow, PERSILE_FOLDER, userImage } from '../../constants/iconConstants';
 import { styles } from '../auth/styles';
 import AppTextInput from '../../components/AppTextInput';
 import { CONTENT } from '../../constants/content';
@@ -35,6 +35,8 @@ const ProfileView = ({ navigation , route }: any) => {
   const [userToken, setUserToken] = useState('');
   const { signIn } = React.useContext(AuthContext);
   const isFocused = useIsFocused();
+  const [visible, setVisible] = useState(false);
+  const { signOut } = React.useContext(AuthContext);
 
   var options = [
     'Camera',
@@ -247,6 +249,7 @@ const ProfileView = ({ navigation , route }: any) => {
       .catch(function (error) {
         showspinner(false)
         console.log("response error", error);
+        alert("Please try again after sometime.",false);
       });
   }
 
@@ -318,6 +321,7 @@ const ProfileView = ({ navigation , route }: any) => {
       .catch(function (error) {
         showspinner(false)
         console.log("response error", error);
+        alert("Please try again after sometime.",false);
       });
   }
 
@@ -332,6 +336,9 @@ const ProfileView = ({ navigation , route }: any) => {
     setEmailID(gmail_details.user.email)
     setPhneNumber(phone_Number)
   }
+  const showMoreoptions = () => {
+    setVisible(true);
+  };
 
   useEffect(() => {
     async function fetchuserInfo() {
@@ -357,7 +364,10 @@ const ProfileView = ({ navigation , route }: any) => {
     const unsubscribe = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => null
   }, [isFocused]);
-
+  const logout = () => {
+    console.log('userfiles;isttttttt');
+    signOut();
+  };
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
@@ -366,8 +376,20 @@ const ProfileView = ({ navigation , route }: any) => {
         textContent={'Loading...'}
         textStyle={styles.spinnerTextStyle}
       />
-      <Header title="Profile"  menuRef={false} />
-
+      <Header  icon={PERSILE_FOLDER}
+      title="Profile" 
+      more
+      shoeMoreoptions={showMoreoptions}
+       />
+      {visible && (
+        <View style={Platform.OS === 'ios' ? styles.morecontainerIOS : styles.morecontainer} ref={menuRef}>
+          <Text style={styles.moreListText}>Settings</Text>
+          <View style={styles.verticalLine} />
+          <TouchableOpacity style={{ marginTop: 10 }} onPress={logout}>
+            <Text style={styles.moreListText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={styles.Profilecontainer}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image

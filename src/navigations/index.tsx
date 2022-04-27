@@ -12,7 +12,6 @@ import {
 import {getItem, removeItem, setItem} from '../utils/asyncStorage';
 import {AUTH_TOKEN} from '../constants/appConstants';
 import {AuthContext} from './context';
-import HomeNavigator from "./HomeNavigator";
 import { GoogleSignin } from 'react-native-google-signin';
 import TabStack from './BottomTabs';
 

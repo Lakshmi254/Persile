@@ -10,14 +10,15 @@ import {
   Platform,
   Alert,
   TouchableWithoutFeedback,
-  Modal,
-  TextInput
+  TextInput,
 } from "react-native";
+import Modal from "react-native-modalbox";
+import { Button, FAB } from "react-native-paper";
 import { Config } from "react-native-config";
 import Header from "../../components/Header";
 import SearchInput from "../../components/SearchInput";
 import { CONTENT } from "../../constants/content";
-import { PERSILE_FOLDER, PHONE } from "../../constants/iconConstants";
+import { CANCEL, PERSILE_FOLDER, PHONE } from "../../constants/iconConstants";
 import { SCREENS } from "../../constants/navigationConstants";
 import { Colors } from "../../styles";
 import { styles } from "./styles";
@@ -26,7 +27,6 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../../navigations/context";
 import { getItem } from "../../utils/asyncStorage";
-import { PrimaryButton } from "../../components/Button";
 import AppTextInput from "../../components/AppTextInput";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { IconButton } from 'react-native-paper';
@@ -44,6 +44,8 @@ const FolderList = ({ navigation }: any) => {
   const [text, onChangeText] = React.useState("");
   const [newFolderName, setNewFolder] = React.useState("");
   const [ErrorMsg, folderErrorMsg] = useState(null as any);
+  const [isConfirm, setisConfirm] = React.useState(false);
+  const [taskData, setTaskData] = React.useState([]) as any;
 
   const onChangeSearch = (text: any) => {
     // Check if searched text is not blank
@@ -89,6 +91,7 @@ const FolderList = ({ navigation }: any) => {
       .catch(function (error) {
         showspinner(false);
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   };
 
@@ -120,8 +123,13 @@ const FolderList = ({ navigation }: any) => {
           if (result.status === false) {
             navigation.navigate(SCREENS.FOLDER_LIST_EMPTY);
           } else {
-            setMasterDataSource(result.value);
-            setFilteredDataSource(result.value);
+
+          var aquaticCreatures = result.value.filter(function (creature) {
+            return creature.folderType == "unassigned";
+          });
+          setMasterDataSource(aquaticCreatures);
+           // setMasterDataSource(result.value);
+          setFilteredDataSource(aquaticCreatures);
           }
         } else {
           showspinner(false);
@@ -131,14 +139,59 @@ const FolderList = ({ navigation }: any) => {
       .catch(function (error) {
         showspinner(false);
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   };
 
+  /* Changed below function to assignFolder directly to task/notes */
+  /*
   const onfolderTap = (folder_name: string, folder_id: string) => {
     const dataObject = { 'folder_name': folder_name, "phone_number": phoneNumber, "folder_id": folder_id }
     navigation.navigate(SCREENS.MESSAGE_LIST, { paramKey: dataObject });
   };
+  */
+  const onCloseModel = () => {
+    setisConfirm(false);
+  };
+  const onPressAction = (item: any) => {
+    setisConfirm(true);
+    setTaskData(item);
+  };
+  const onCreateTask = (task: string) => {
+    setisConfirm(false);
+    const reqData = {
+      id: taskData.id,
+      type: task,
+    };
+    addTaskNote(reqData);
+  };
 
+  const addTaskNote = (reqData: any) => {
+    showspinner(true);
+    axios
+      .post(
+        `${Config.API_BASE_URL}${Config.API_ENDPOINT_ASSIGNFOLDERTYPE}`,
+        reqData
+      )
+      .then(function (response) {
+        showspinner(false);
+        console.log("response object", response);
+        console.log("response", response.data);
+        const result = response.data;
+        if (response.status === 200) {
+          alert(result.message);
+          fetchAllFoldersAPI(phoneNumber)
+        } else {
+          showspinner(false);
+          alert(result.message);
+        }
+      })
+      .catch(function (error) {
+        showspinner(false);
+        console.log("response error", error);
+        alert("Please try again after sometime.");
+      });
+  };
 
   useEffect(() => {
     async function fetchMyPhoneNumber() {
@@ -152,7 +205,7 @@ const FolderList = ({ navigation }: any) => {
   const renderItem = ({ item }: any) => {
     return (
       <View style={{ width: "25%" }}>
-        <TouchableOpacity style={{ margin: 5 }} onPress={() => console.log("dfws") /*onfolderTap(item?.folderName, item?.id)*/}>
+        <TouchableOpacity style={{ margin: 5 }} onPress={() => onPressAction(item) /*onfolderTap(item?.folderName, item?.id)*/}>
           <Image
             source={PERSILE_FOLDER}
             style={{ width: "100%", height: 50 }}
@@ -225,7 +278,7 @@ const FolderList = ({ navigation }: any) => {
         </View>
       )}
 
-      <Modal
+      {/* <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
@@ -265,7 +318,7 @@ const FolderList = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
       <TouchableWithoutFeedback onPress={handleOutsideTouch}>
         <View style={styles.container1}>
           <SearchInput
@@ -285,13 +338,68 @@ const FolderList = ({ navigation }: any) => {
         </View>
       </TouchableWithoutFeedback>
 
-      <View
+      <Modal
+        onClosed={onCloseModel}
+        isOpen={isConfirm}
+        style={{ height: "25%" }}
+        position="bottom"
+        entry="bottom"
+        swipeArea={20}
+        coverScreen
+      >
+        <View style={{ padding: 15 }}>
+          <TouchableOpacity
+            onPress={onCloseModel}
+            style={{
+              alignItems: "flex-end"
+            }}
+          >
+            <Image source={CANCEL} style={{ height: 30, width: 30 }} />
+          </TouchableOpacity>
+
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+              paddingHorizontal: 20,
+              marginTop: 20,
+            }}
+          >
+            <Button
+              style={styles.taskButton}
+              contentStyle={{ borderRadius: 5, backgroundColor: 'black' }}
+              uppercase={false}
+              labelStyle={{
+                fontSize: 14,
+              }}
+              mode="contained"
+              onPress={() => onCreateTask("task")}
+            >
+              {"Task List"}
+            </Button>
+            <Button
+              style={styles.taskButton}
+              contentStyle={{ borderRadius: 5, backgroundColor: 'black' }}
+              uppercase={false}
+              labelStyle={{
+                fontSize: 14,
+              }}
+              mode="contained"
+              onPress={() => onCreateTask("notes")}
+            >
+              {"Note List"}
+            </Button>
+          </View>
+        </View>
+      </Modal>
+
+      {/* <View
         style={{
           justifyContent: "flex-end",
           marginBottom: 30,
         }}
       >
-        {/* <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <View
             style={{
               width: "15%",
@@ -303,14 +411,14 @@ const FolderList = ({ navigation }: any) => {
           <Text style={[styles.subText, { marginTop: 10 }]}>
             {CONTENT.FOLDER_CONTENT}
           </Text>
-        </View> */}
-      </View>
-      <View >
+        </View>
+      </View> */}
+      {/* <View >
         <PrimaryButton
           onPress={() => onAddFolderAction()}
           title="Add Folder +"
         />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

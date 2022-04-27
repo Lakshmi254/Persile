@@ -7,8 +7,10 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {HOME, PROFILE} from '../constants/iconConstants';
 import ProfileView from '../screens/auth/ProfileView';
 import HomeNavigator from './HomeNavigator';
+import TasksorNotes from './TaskOrNotesStack';
 
 const Tab = createBottomTabNavigator();
+
 const styles = StyleSheet.create({
   image: {
     resizeMode: 'contain',
@@ -24,6 +26,12 @@ const tabsData = [
     component: HomeNavigator,
     title: 'Home',
     icon: HOME,
+  },
+  {
+    name: 'Tasks/Notes',
+    component: TasksorNotes,
+    title: 'Tasks/Notes',
+    icon: PROFILE,
   },
   {
     name: 'Profile',

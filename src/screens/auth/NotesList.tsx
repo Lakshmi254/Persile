@@ -13,6 +13,7 @@ import { SCREENS } from '../../constants/navigationConstants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useIsFocused } from "@react-navigation/native";
 import { getItem } from '../../utils/asyncStorage';
+import { AuthContext } from '../../navigations/context';
 
 const NotesList = ({ navigation , route}: any) => {
   const [spinner, showspinner] = useState(false);
@@ -72,6 +73,7 @@ const NotesList = ({ navigation , route}: any) => {
           .catch(function (error) {
             showspinner(false);
             console.log("response error", error);
+            alert("Please try again after sometime.");
           });
       };
 

@@ -31,4 +31,26 @@ export const SharedStyles = StyleSheet.create({
     color: Colors.BLACK,
     fontFamily: Typography.FONT_FAMILY_MEDIUM,
   },
+  InactiveSegmentButton:{
+    backgroundColor: 'white',
+    padding: 18,
+    height: 60,
+    flexDirection : 'row',
+    justifyContent : 'center',
+    alignItems : 'center',
+    borderRadius: 5,
+    borderWidth : 2,
+    borderColor : Colors.PRIMARY
+  },
+  ActiveSegmentButton:{
+    backgroundColor: Colors.PRIMARY,
+    padding: 18,
+    height: 60,
+    flexDirection : 'row',
+    justifyContent : 'center',
+    alignItems : 'center',
+    borderRadius: 5,
+    borderWidth : 2,
+    borderColor : Colors.PRIMARY
+  }
 });

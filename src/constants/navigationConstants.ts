@@ -9,6 +9,6 @@ export const SCREENS = {
   NOTES_LIST : 'NotesList',
   NOTES_DETAIL : 'NotesDetail',
   PROFILE_VIEW : 'ProfileView',
-  PROFILE_HOME_VIEW : 'ProfileView'
-
+  PROFILE_HOME_VIEW : 'ProfileView',
+  TASKS_OR_NOTES:'Tasks/Notes'
 };

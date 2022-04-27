@@ -67,6 +67,7 @@ const MessageList = ({ navigation, route }: any) => {
       .catch(function (error) {
         showspinner(false);
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   };
 
@@ -136,8 +137,10 @@ const MessageList = ({ navigation, route }: any) => {
       .catch(function (error) {
         showspinner(false);
         console.log("response error", error);
+        alert("Please try again after sometime.");
       });
   };
+  
   const renderItem = ({ item }: any) => {
     return (
       <View
