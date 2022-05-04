@@ -8,31 +8,54 @@ import {
   FlatList,
   Alert,
   BackHandler,
-  Image,
-  TouchableOpacity
 } from "react-native";
+import CheckBox from '@react-native-community/checkbox';
 import Config from "react-native-config";
 import Header from "../../components/Header";
 import {
-  backArrow,
-  CANCEL,
-  DOWN_ARROW,
+  backArrow
 } from "../../constants/iconConstants";
 import { styles } from "./styles";
-import Modal from "react-native-modalbox";
-import { Button, FAB } from "react-native-paper";
 import { SCREENS } from "../../constants/navigationConstants";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { getItem } from "../../utils/asyncStorage";
-import { PrimaryButton } from "../../components/Button";
+import SearchInput from "../../components/SearchInput";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MessageList = ({ navigation, route }: any) => {
   const [spinner, showspinner] = useState(false);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
   const { paramKey } = route.params;
   const [isConfirm, setisConfirm] = React.useState(false);
   const [taskData, setTaskData] = React.useState([]) as any;
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [CheckBoxValue, setToggleCheckBox] = useState(false)
+  const [searchText, setSearchText] = useState("");
+
+
+  const onChangeSearch = (text: any) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = masterDataSource.filter(function (item: any) {
+        const itemData = item.message
+          ? item.message.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearchText(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource);
+      setSearchText(text);
+    }
+  };
 
   //Show Alert
   const alert = (message: string | undefined) =>
@@ -40,7 +63,7 @@ const MessageList = ({ navigation, route }: any) => {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  const fetchAllMessagesAPI = (phone : String) => {
+  const fetchAllMessagesAPI = (phone: String) => {
     showspinner(true);
     axios
       .post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_GETALLMESSAGES}`, {
@@ -57,6 +80,7 @@ const MessageList = ({ navigation, route }: any) => {
           //   return creature.messageType == "unassigned";
           // });
           setMasterDataSource(result.value);
+          setFilteredDataSource(result.value)
           if (result.value == undefined) {
             alert('Your folder has no messages.');
           }
@@ -140,7 +164,36 @@ const MessageList = ({ navigation, route }: any) => {
         alert("Please try again after sometime.");
       });
   };
-  
+
+  const setASPriority = (item: any, value: boolean) => {
+    showspinner(true);
+    axios.post(`${Config.API_BASE_URL}${Config.API_ENDPOINT_PRIORITY}`, {
+      id: item.id,
+      priorityStatus: value
+    })
+      .then(function (response) {
+        showspinner(false);
+        console.log("response object", response);
+        console.log("response messages from folder", response.data);
+        const result = response.data;
+        if (response.status === 200) {
+          fetchAllMessagesAPI(phoneNumber)
+        } else {
+          alert(result.message);
+        }
+      })
+      .catch(function (error) {
+        showspinner(false);
+        console.log("response error", error);
+        alert("Please try again after sometime.");
+      });
+  };
+
+  const oncheckBoxSelected = (value: boolean, item: any) => {
+    //call api to set selected
+    setASPriority(item, value);
+  }
+
   const renderItem = ({ item }: any) => {
     return (
       <View
@@ -148,21 +201,39 @@ const MessageList = ({ navigation, route }: any) => {
           flex: 1,
           justifyContent: "space-between",
           flexDirection: "row",
-          padding: 15,
+          padding: 10,
         }}
       >
-        <View style={{ width: "60%" }}>
+        {item.messageType === "task" ? <View style={{ justifyContent: 'flex-start' , flexDirection : 'row' }}>
+          <CheckBox
+          disabled={false}
+          value={false}
+          boxType='square'
+          //onValueChange={(newValue) => oncheckBoxSelected(newValue, item)}
+          style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
+        />
+                  <View style={{ paddingLeft : 5, width: "80%", justifyContent: 'center' }}>
           <Text style={[styles.subText]}>{item?.message}</Text>
+          </View>
+        </View> : <View style={{ justifyContent: 'flex-start' , flexDirection : 'row' }}>
+          <Icon name="circle" size={15} color="black" />
+          <View style={{ paddingLeft : 5, width: "80%", justifyContent: 'center' }}>
+          <Text style={[styles.subText]}>{item?.message}</Text>
+          </View>
+        </View>}
+        {/* 
+        <View style={{ width: "60%", justifyContent: 'center' }}>
+          <Text style={[styles.subText]}>{item?.message}</Text>
+        </View> */}
+        <View style={{ alignSelf: "center", alignItems: "center", height: 30 }}>
+          <CheckBox
+            disabled={false}
+            value={item.priority}
+            boxType='square'
+            onValueChange={(newValue) => oncheckBoxSelected(newValue, item)}
+            style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
+          />
         </View>
-        <View style={{ alignSelf: "center", alignItems: "center" ,height: 30}}>
-          <Text style={styles.assignText}>{item?.messageType}</Text>
-        </View>
-        {/* <TouchableOpacity
-          onPress={() => onPressAction(item)}
-          style={{ alignSelf: "center", alignItems: "center" ,height: 30, width: 40}}
-        >
-          <Image source={DOWN_ARROW} style={{ height: 20, width: 20 , marginRight : 5}} />
-        </TouchableOpacity> */}
       </View>
     );
   };
@@ -174,86 +245,33 @@ const MessageList = ({ navigation, route }: any) => {
         textContent={''}
         textStyle={styles.spinnerTextStyle}
       />
-      <View style={{padding : "5%" , width : "50%" ,  alignSelf : 'flex-end'}}>
-      <PrimaryButton
-            onPress={() => onPressAction()}
-            title="Assign"
+      <View style={{ paddingLeft: "5%", paddingRight: "5%" }}>
+        <View style={{ paddingTop: "5%", paddingBottom: "5%" }}>
+          <SearchInput
+            placeholder="Search"
+            value={searchText}
+            isFilter
+            onChange={(text: any) => onChangeSearch(text)}
+            onClear={(text: any) => onChangeSearch("")}
           />
-      </View>
-      <FlatList
-        data={masterDataSource}
-        renderItem={renderItem}
-        keyExtractor={(item: any) => item.id}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{ backgroundColor: "black", height: 1, marginVertical: 5 }}
-          />
-        )}
-      />
-      <Modal
-        onClosed={onCloseModel}
-        isOpen={isConfirm}
-        style={{ height: "25%" }}
-        position="bottom"
-        entry="bottom"
-        swipeArea={20}
-        coverScreen
-      >
-        <View style={{ padding: 15 }}>
-          <TouchableOpacity
-            onPress={onCloseModel}
-            style={{
-              alignItems: "flex-end"
-            }}
-          >
-            <Image source={CANCEL} style={{ height: 30, width: 30 }} />
-          </TouchableOpacity>
-
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-              paddingHorizontal: 20,
-              marginTop: 20,
-            }}
-          >
-            <Button
-              style={styles.taskButton}
-              contentStyle={{ borderRadius: 5, backgroundColor: 'black' }}
-              uppercase={false}
-              labelStyle={{
-                fontSize: 14,
-              }}
-              mode="contained"
-              onPress={() => onCreateTask("task")}
-            >
-              {"Task List"}
-            </Button>
-            <Button
-              style={styles.taskButton}
-              contentStyle={{ borderRadius: 5, backgroundColor: 'black' }}
-              uppercase={false}
-              labelStyle={{
-                fontSize: 14,
-              }}
-              mode="contained"
-              onPress={() => onCreateTask("notes")}
-            >
-              {"Note List"}
-            </Button>
-          </View>
         </View>
-      </Modal>
-      {/* <Button color="black" style={styles.fabButton}
-        onPress={() => onNotesTaskTap()} labelStyle={{
-          fontSize: 16,
-          fontWeight: "600"
-        }} 
-        uppercase={false}
-        >
-        Task/Notes
-      </Button> */}
-
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: "2%" }}>
+          {filteredDataSource ?
+            <Text>Showing {filteredDataSource.length} {filteredDataSource[0]?.messageType === "task" ? "Task" : "Note"} </Text>
+            : <Text>Showing 0 items</Text>}
+          <Text>Mark as priority</Text>
+        </View>
+        <FlatList
+          data={filteredDataSource}
+          renderItem={renderItem}
+          keyExtractor={(item: any) => item.id}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{ backgroundColor: "grey", height: 1, marginVertical: 5 }}
+            />
+          )}
+        />
+      </View>
     </SafeAreaView>
   );
 };

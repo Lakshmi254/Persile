@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_FAMILY_BOLD,
     color: Colors.BLACK,
     fontWeight: "600",
-    paddingHorizontal: "5%",
+    //paddingHorizontal: "5%",
     letterSpacing: 1,
   },
   container: {
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY,
   },
   iconStyle: {
-    height: 25,
-    width: 25,
+    height: 30,
+    width: 30,
   },
   moreIcon: {
     height: 20,

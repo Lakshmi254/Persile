@@ -7,7 +7,6 @@ import NewFolder from '../screens/auth/NewFolder';
 import MessageList from '../screens/auth/MessageList';
 import NotesList from '../screens/auth/NotesList';
 import NotesDetail from '../screens/auth/Notesdetail';
-import ProfileHomeView from '../screens/auth/ProfileView';
 
 const Stack = createStackNavigator();
 

@@ -376,7 +376,7 @@ const ProfileView = ({ navigation , route }: any) => {
         textContent={'Loading...'}
         textStyle={styles.spinnerTextStyle}
       />
-      <Header  icon={PERSILE_FOLDER}
+      <Header
       title="Profile" 
       more
       shoeMoreoptions={showMoreoptions}

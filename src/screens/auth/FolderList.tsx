@@ -95,7 +95,6 @@ const FolderList = ({ navigation }: any) => {
       });
   };
 
-
   // add folder action
   const onAddFolderAction = () => {
     setNewFolder("");
@@ -123,13 +122,12 @@ const FolderList = ({ navigation }: any) => {
           if (result.status === false) {
             navigation.navigate(SCREENS.FOLDER_LIST_EMPTY);
           } else {
-
-          var aquaticCreatures = result.value.filter(function (creature) {
-            return creature.folderType == "unassigned";
-          });
-          setMasterDataSource(aquaticCreatures);
-           // setMasterDataSource(result.value);
-          setFilteredDataSource(aquaticCreatures);
+            // var aquaticCreatures = result.value.filter(function (creature) {
+            //   return creature.folderType == "unassigned";
+            // });
+            setMasterDataSource(result.value);
+            // setMasterDataSource(result.value);
+            setFilteredDataSource(result.value);
           }
         } else {
           showspinner(false);
@@ -143,19 +141,22 @@ const FolderList = ({ navigation }: any) => {
       });
   };
 
-  /* Changed below function to assignFolder directly to task/notes */
-  /*
+  // called if folder is already assigned
   const onfolderTap = (folder_name: string, folder_id: string) => {
     const dataObject = { 'folder_name': folder_name, "phone_number": phoneNumber, "folder_id": folder_id }
     navigation.navigate(SCREENS.MESSAGE_LIST, { paramKey: dataObject });
   };
-  */
+
   const onCloseModel = () => {
     setisConfirm(false);
   };
   const onPressAction = (item: any) => {
-    setisConfirm(true);
-    setTaskData(item);
+    if (item.folderType === "unassigned") {
+      setisConfirm(true);
+      setTaskData(item);
+    } else {
+      onfolderTap(item.folderName, item.id)
+    }
   };
   const onCreateTask = (task: string) => {
     setisConfirm(false);
@@ -347,7 +348,9 @@ const FolderList = ({ navigation }: any) => {
         swipeArea={20}
         coverScreen
       >
+
         <View style={{ padding: 15 }}>
+          
           <TouchableOpacity
             onPress={onCloseModel}
             style={{
@@ -356,6 +359,7 @@ const FolderList = ({ navigation }: any) => {
           >
             <Image source={CANCEL} style={{ height: 30, width: 30 }} />
           </TouchableOpacity>
+          <Text>Do you want to Assign this folder as Task Folder / Note Folder?</Text>
 
           <View
             style={{
@@ -375,7 +379,7 @@ const FolderList = ({ navigation }: any) => {
               mode="contained"
               onPress={() => onCreateTask("task")}
             >
-              {"Task List"}
+              {"Task folder"}
             </Button>
             <Button
               style={styles.taskButton}
@@ -387,7 +391,7 @@ const FolderList = ({ navigation }: any) => {
               mode="contained"
               onPress={() => onCreateTask("notes")}
             >
-              {"Note List"}
+              {"Note folder"}
             </Button>
           </View>
         </View>

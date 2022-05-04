@@ -14,7 +14,7 @@ import {
 import { Config } from "react-native-config";
 import Header from "../../components/Header";
 import { CONTENT } from "../../constants/content";
-import { PERSILE_FOLDER, TASK_ICON , NOTE_ICON} from "../../constants/iconConstants";
+import { PERSILE_FOLDER, TASK_ICON, NOTE_ICON } from "../../constants/iconConstants";
 import { SCREENS } from "../../constants/navigationConstants";
 import { Colors, Typography } from "../../styles";
 import { styles } from "./styles";
@@ -140,7 +140,7 @@ const TasksorNotes = ({ navigation }: any) => {
             }
         }
     };
-    
+
     return (
         <SafeAreaView
             style={{
@@ -155,21 +155,21 @@ const TasksorNotes = ({ navigation }: any) => {
                 textContent={""}
                 textStyle={styles.spinnerTextStyle}
             />
-             <Header  icon={PERSILE_FOLDER}
+            <Header
                 title={CONTENT.TASKORNOTE.toUpperCase()}
                 more
-      shoeMoreoptions={showMoreoptions}
-       />
-           
-             {visible && (
-        <View style={Platform.OS === 'ios' ? styles.morecontainerIOS : styles.morecontainer} ref={menuRef}>
-          <Text style={styles.moreListText}>Settings</Text>
-          <View style={styles.verticalLine} />
-          <TouchableOpacity style={{ marginTop: 10 }} onPress={logout}>
-            <Text style={styles.moreListText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+                shoeMoreoptions={showMoreoptions}
+            />
+
+            {visible && (
+                <View style={Platform.OS === 'ios' ? styles.morecontainerIOS : styles.morecontainer} ref={menuRef}>
+                    <Text style={styles.moreListText}>Settings</Text>
+                    <View style={styles.verticalLine} />
+                    <TouchableOpacity style={{ marginTop: 10 }} onPress={logout}>
+                        <Text style={styles.moreListText}>Logout</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             <View style={styles.container1}>
                 {/* <SegmentedControl
                     backgroundColor="#000000"
@@ -185,7 +185,7 @@ const TasksorNotes = ({ navigation }: any) => {
                     <SegmentButton disable={selectedIndex === 1 ? false : true} onPress={() => setSelectedIndex(1)} title="NOTES" image={NOTE_ICON} />
                 </View>
                 <FlatList
-                    style={{ marginTop: 50 }}
+                    style={{ marginTop: 20 }}
                     data={selectedIndex == 0 ? masterDataSource : NoteDataSource}
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}
